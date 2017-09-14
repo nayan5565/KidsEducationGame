@@ -882,26 +882,30 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             }
         });
 
-        if (Global.levelId == 1) {
-            txtScore.setText("Score :  " + Utils.convertNum(present + ""));
-        }
-        if (Global.levelId == 2) {
-            txtScore.setText("Score :  " + Utils.convertNum(present + ""));
-        }
-        if (Global.levelId == 3) {
-            txtScore.setText("Score :  " + present + "");
-        }
-        if (Global.levelId == 4) {
-            txtScore.setText("Score :  " + present + "");
-        }
+        if (Global.isSavePoint==0){
+            if (Global.levelId == 1) {
+                txtScore.setText("Score :  " + Utils.convertNum(present + ""));
+            }
+            if (Global.levelId == 2) {
+                txtScore.setText("Score :  " + Utils.convertNum(present + ""));
+            }
+            if (Global.levelId == 3) {
+                txtScore.setText("Score :  " + present + "");
+            }
+            if (Global.levelId == 4) {
+                txtScore.setText("Score :  " + present + "");
+            }
 //        txtScore.setText("Score :  " + present + "");
-        if (present == 50) {
-            txtPoint.setImageResource(R.drawable.star_1);
-        } else if (present == 75) {
-            txtPoint.setImageResource(R.drawable.star_2);
-        } else if (present == 100) {
-            txtPoint.setImageResource(R.drawable.star_3);
+            if (present == 50) {
+                txtPoint.setImageResource(R.drawable.star_1);
+            } else if (present == 75) {
+                txtPoint.setImageResource(R.drawable.star_2);
+            } else if (present == 100) {
+                txtPoint.setImageResource(R.drawable.star_3);
+            }
         }
+
+
 //        else txtPoint.setText(Utils.getIntToStar(0));
         dialog.show();
     }

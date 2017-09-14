@@ -824,17 +824,19 @@ public class GameLogic {
                 txtScore.setText("Score :  " + presentPoint + "");
             }
 
+            if (presentPoint == 50) {
+                txtPoint.setImageResource(R.drawable.star_1);
+            } else if (presentPoint == 75) {
+                txtPoint.setImageResource(R.drawable.star_2);
+            } else if (presentPoint == 100) {
+                txtPoint.setImageResource(R.drawable.star_3);
+            }
+
         }
 
 
 //        txtScore.setText("Score :  " + presentPoint + "");
-        if (presentPoint == 50) {
-            txtPoint.setImageResource(R.drawable.star_1);
-        } else if (presentPoint == 75) {
-            txtPoint.setImageResource(R.drawable.star_2);
-        } else if (presentPoint == 100) {
-            txtPoint.setImageResource(R.drawable.star_3);
-        }
+
 //        else txtPoint.setText(Utils.getIntToStar(0));
         dialog.show();
     }
