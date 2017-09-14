@@ -204,7 +204,7 @@ public class GameLogic {
             if (Global.levelId == 1) {
                 GameActivity.getInstance().txtTotalPoint.setText(Utils.convertNum(Global.totalPoint + ""));
             }
-            if (Global.levelId ==2) {
+            if (Global.levelId == 2) {
                 GameActivity.getInstance().txtTotalPoint.setText(Utils.convertNum(Global.totalPoint + ""));
             }
             if (Global.levelId == 3) {
@@ -527,6 +527,7 @@ public class GameLogic {
 
                 if (matchWinCount == listSize / 2) {
                     savePoint(listSize);
+                    isSavePoint();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -630,6 +631,7 @@ public class GameLogic {
 
                 if (matchWinCount == listSize / 2) {
                     savePoint(listSize);
+                    isSavePoint();
 //                    DatabaseHelper db = new DatabaseHelper(context);
 //                    MLock lock1 = db.getLocalData(Global.levelId, Global.subLevelId);
 //                    if (lock1.getIsSavePoint() == 0) {
@@ -652,7 +654,18 @@ public class GameLogic {
                             dialogShowForLevelClear(listSize);
                         }
                     }, 1500);
-                    GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
+                    if (Global.levelId == 1) {
+                        GameActivity.getInstance().txtTotalPoint.setText(Utils.convertNum(Global.totalPoint + ""));
+                    }
+                    if (Global.levelId == 2) {
+                        GameActivity.getInstance().txtTotalPoint.setText(Utils.convertNum(Global.totalPoint + ""));
+                    }
+                    if (Global.levelId == 3) {
+                        GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
+                    }
+                    if (Global.levelId == 4) {
+                        GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
+                    }
 //                    VungleAdManager.getInstance(context).play();
 
 
@@ -715,7 +728,7 @@ public class GameLogic {
         final TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
         ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
         ImageView imgFacebook = (ImageView) dialog.findViewById(R.id.imgFacebook);
-        Utils.setFont(context, "skranjiregular", txtScore);
+
         Utils.setFont(context, "carterone", txtClear);
         imgLevelMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -732,12 +745,16 @@ public class GameLogic {
             }
         });
         if (Global.levelId == 1) {
+            Utils.setFont(context, "BenSenHandwriting", txtScore);
             Utils.changeUIcolor(context, Global.uriBangla, changeColor);
         } else if (Global.levelId == 2) {
+            Utils.setFont(context, "BenSenHandwriting", txtScore);
             Utils.changeUIcolor(context, Global.uriOngko, changeColor);
         } else if (Global.levelId == 3) {
+            Utils.setFont(context, "carterone", txtScore);
             Utils.changeUIcolor(context, Global.uriEnglish, changeColor);
         } else if (Global.levelId == 4) {
+            Utils.setFont(context, "carterone", txtScore);
             Utils.changeUIcolor(context, Global.uriMath, changeColor);
         }
 
@@ -750,7 +767,7 @@ public class GameLogic {
 
                 Log.e("totalpoint", "tpoint is" + Global.totalPoint);
 //                GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
-
+                GameActivity.getInstance().getIsSaveDataFromDb();
                 resetList(listSize);
                 dialog.dismiss();
             }

@@ -366,6 +366,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //                    Utils.toastMassage(context, "level finish");
 
                     savePoint(textArrayList.size() - 1);
+                    GameLogic.getInstance(context).isSavePoint();
                     dialogShowForLevelClear(textArrayList.size());
                     if (Global.levelId == 1) {
                         GameActivity.getInstance().txtTotalPoint.setText(Utils.convertNum(Global.totalPoint + ""));
@@ -806,7 +807,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         final TextView txtScore = (TextView) dialog.findViewById(R.id.txtLevelScore);
         ImageView imgLevelMenu = (ImageView) dialog.findViewById(R.id.imgLevelMenu);
         ImageView imgFacebook = (ImageView) dialog.findViewById(R.id.imgFacebook);
-        Utils.setFont(context, "skranjiregular", txtScore);
+
+
         Utils.setFont(context, "carterone", txtClear);
         imgLevelMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -823,12 +825,16 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             }
         });
         if (Global.levelId == 1) {
+            Utils.setFont(context, "BenSenHandwriting", txtScore);
             Utils.changeUIcolor(context, Global.uriBangla, changeColor);
         } else if (Global.levelId == 2) {
+            Utils.setFont(context, "BenSenHandwriting", txtScore);
             Utils.changeUIcolor(context, Global.uriOngko, changeColor);
         } else if (Global.levelId == 3) {
+            Utils.setFont(context, "carterone", txtScore);
             Utils.changeUIcolor(context, Global.uriEnglish, changeColor);
         } else if (Global.levelId == 4) {
+            Utils.setFont(context, "carterone", txtScore);
             Utils.changeUIcolor(context, Global.uriMath, changeColor);
         }
 
@@ -837,7 +843,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             @Override
             public void onClick(View v) {
 
-
+                GameActivity.getInstance().getIsSaveDataFromDb();
 //                GameLogic.getInstance(context).resetList(listSize);
                 dialog.dismiss();
             }
@@ -877,7 +883,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         });
 
         if (Global.levelId == 1) {
-            txtScore.setText("Score :  " + Utils.convertNum(present+ ""));
+            txtScore.setText("Score :  " + Utils.convertNum(present + ""));
         }
         if (Global.levelId == 2) {
             txtScore.setText("Score :  " + Utils.convertNum(present + ""));
@@ -902,8 +908,11 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 
     public void savePoint(int listSize) {
         present = pointCount(listSize);
-        Global.totalPoint = Global.totalPoint + present;
-        GameLogic.getInstance(context).saveDb();
+        if (Global.isSavePoint == 0) {
+            Global.totalPoint = Global.totalPoint + present;
+            GameLogic.getInstance(context).saveDb();
+        }
+
 //        addDb();
 
         if (present > Utils.bestPoint) {

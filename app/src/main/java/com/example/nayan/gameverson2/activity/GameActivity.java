@@ -75,6 +75,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         init();
         MyGoogleAnalytics.getInstance().setupAnalytics("Game Activity");
         getLocalData(content);
+        getIsSaveDataFromDb();
         prepareDisplay();
 
 //        getPopUp();
@@ -133,7 +134,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-
+public void getIsSaveDataFromDb(){
+    mData=database.getIsSavePoint(Global.levelId, Global.subLevelId);
+    Global.isSavePoint=mData.getIsSavePoint();
+    Log.e("isSavePoint"," is "+Global.isSavePoint);
+}
 
     public void getLocalData(int contents) {
 //        ArrayList<MAllContent> contentArrayList1 = database.getAllContentsData(Global.levelId, content, 0, 0);
@@ -142,9 +147,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         mSubLevel = database.getSubLevelData(Global.levelId).get(Global.SUB_INDEX_POSITION);
         mLock = database.getLocalData(Global.levelId, Global.subLevelId);
-        mData=database.getIsSavePoint(Global.levelId, Global.subLevelId);
-        Global.isSavePoint=mData.getIsSavePoint();
-        Log.e("isSavePoint"," is "+Global.isSavePoint);
+
         Global.popUp = mLock.getPopup();
 
         Log.e("TEST", Global.levelId + ":" + Global.subLevelId + ":" + content);
