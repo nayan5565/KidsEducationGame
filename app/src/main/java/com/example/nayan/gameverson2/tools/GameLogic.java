@@ -29,6 +29,7 @@ import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.activity.MainActivity;
 import com.example.nayan.gameverson2.activity.SubLevelActivity;
 import com.example.nayan.gameverson2.model.MAllContent;
+import com.example.nayan.gameverson2.model.MData;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MWords;
 
@@ -179,6 +180,7 @@ public class GameLogic {
 
         if (count == listSize) {
             savePoint(listSize);
+            isSavePoint();
 //            DatabaseHelper db = new DatabaseHelper(context);
 //            MLock lock1 = db.getLocalData(Global.levelId, Global.subLevelId);
 //            if (lock1.getIsSavePoint() == 0) {
@@ -199,7 +201,19 @@ public class GameLogic {
 //                    resetList(listSize);
                 }
             }, 1000);
-            GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
+            if (Global.levelId == 1) {
+                GameActivity.getInstance().txtTotalPoint.setText(Utils.convertNum(Global.totalPoint + ""));
+            }
+            if (Global.levelId ==2) {
+                GameActivity.getInstance().txtTotalPoint.setText(Utils.convertNum(Global.totalPoint + ""));
+            }
+            if (Global.levelId == 3) {
+                GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
+            }
+            if (Global.levelId == 4) {
+                GameActivity.getInstance().txtTotalPoint.setText(Global.totalPoint + "");
+            }
+
 
             handler.postDelayed(new Runnable() {
                 @Override
@@ -779,18 +793,22 @@ public class GameLogic {
 
 //        txtBestPoint.setText("" + Utils.bestPoint);
 
-        if (Global.levelId == 1) {
-            txtScore.setText("Score :  " + Utils.convertNum(presentPoint + ""));
+        if (Global.isSavePoint == 0) {
+            if (Global.levelId == 1) {
+                txtScore.setText("Score :  " + Utils.convertNum(presentPoint + ""));
+            }
+            if (Global.levelId == 2) {
+                txtScore.setText("Score :  " + Utils.convertNum(presentPoint + ""));
+            }
+            if (Global.levelId == 3) {
+                txtScore.setText("Score :  " + presentPoint + "");
+            }
+            if (Global.levelId == 4) {
+                txtScore.setText("Score :  " + presentPoint + "");
+            }
+
         }
-        if (Global.levelId == 2) {
-            txtScore.setText("Score :  " + Utils.convertNum(presentPoint + ""));
-        }
-        if (Global.levelId == 3) {
-            txtScore.setText("Score :  " + presentPoint + "");
-        }
-        if (Global.levelId == 4) {
-            txtScore.setText("Score :  " + presentPoint + "");
-        }
+
 
 //        txtScore.setText("Score :  " + presentPoint + "");
         if (presentPoint == 50) {
@@ -802,6 +820,18 @@ public class GameLogic {
         }
 //        else txtPoint.setText(Utils.getIntToStar(0));
         dialog.show();
+    }
+
+    public void isSavePoint() {
+        DatabaseHelper db = new DatabaseHelper(context);
+        MData mData = new MData();
+        mData = db.getIsSavePoint(Global.levelId, Global.subLevelId);
+        mData.setLevelId(Global.levelId);
+        mData.setSubLevelId(Global.subLevelId);
+        mData.setIsSavePoint(1);
+        db.isPointSave(mData);
+//        Global.isSavePoint = mData.getIsSavePoint();
+        Log.e("isSavePoint", " save " + mData.getIsSavePoint());
     }
 
     public void flipAnimation(View view) {
@@ -873,8 +903,11 @@ public class GameLogic {
 
     public void savePoint(int listSize) {
         presentPoint = pointCount(listSize);
-        Global.totalPoint = Global.totalPoint + presentPoint;
-        saveDb();
+        if (Global.isSavePoint == 0) {
+            Global.totalPoint = Global.totalPoint + presentPoint;
+            saveDb();
+        }
+
 //        addDb();
 
         if (presentPoint > Utils.bestPoint) {

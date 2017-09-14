@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.nayan.gameverson2.model.MAllContent;
 //import com.example.nayan.gameverson2.model.MContents;
+import com.example.nayan.gameverson2.model.MData;
 import com.example.nayan.gameverson2.model.MDownload;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MLock;
@@ -27,6 +28,7 @@ public class DatabaseHelper {
     private static final String DATABASE_LEVEL_TABLE = "level_db";
     private static final String DATABASE_DOWNLOAD_TABLE = "download_tb";
     private static final String DATABASE_ALL_CONTENTS_TABLE = "all_contents";
+    private static final String DATABASE_IS_SAVE_POINT_TABLE = "is_save_point";
     private static final String DATABASE_LOCK_TABLE = "lock_tb";
     private static final String DATABASE_SUB_LEVEL_TABLE = "sub";
     private static final String DATABASE_ALL_WORDS_TABLE = "all_words_tb";
@@ -136,6 +138,12 @@ public class DatabaseHelper {
             + KEY_IS_DOWNLOAD + " integer, "
             + KEY_MODEL_ID + " integer  , "
             + KEY_URL + " text)";
+    private static final String CREATE_IS_SAVE_POINT_TABLE = "create table if not exists "
+            + DATABASE_IS_SAVE_POINT_TABLE + "("
+            + KEY_LOCK_ID + " integer primary key autoincrement, "
+            + KEY_IS_SAVE_POINT + " integer, "
+            + KEY_LEVEL_ID + " integer, "
+            + KEY_SUB_LEVEL_ID + " integer)";
     private static DatabaseHelper instance;
     private static SQLiteDatabase db;
     private final String TAG = getClass().getSimpleName();
@@ -176,6 +184,7 @@ public class DatabaseHelper {
         db.execSQL(DATABASE_CREATE_LOCK_TABLE);
         db.execSQL(DATABASE_CREATE_ALL_WORDS_TABLE);
         db.execSQL(DATABASE_CREATE_DOWNLOAD_TABLE);
+        db.execSQL(CREATE_IS_SAVE_POINT_TABLE);
 
     }
 
@@ -253,6 +262,61 @@ public class DatabaseHelper {
         if (cursor != null)
             cursor.close();
     }
+    public void isPointSave(MData mData) {
+        Cursor cursor = null;
+        try {
+            ContentValues values = new ContentValues();
+            values.put(KEY_LEVEL_ID, mData.getLevelId());
+            values.put(KEY_SUB_LEVEL_ID, mData.getSubLevelId());
+
+            values.put(KEY_IS_SAVE_POINT, mData.getIsSavePoint());
+
+
+            String sql = "select * from " + DATABASE_IS_SAVE_POINT_TABLE + " where " + KEY_LEVEL_ID + "='" + mData.getLevelId()
+                    + "' AND " + KEY_SUB_LEVEL_ID + "='" + mData.getSubLevelId() + "'";
+            cursor = db.rawQuery(sql, null);
+            if (cursor != null && cursor.getCount() > 0) {
+                int update = db.update(DATABASE_IS_SAVE_POINT_TABLE, values, KEY_LEVEL_ID + "=? AND " + KEY_SUB_LEVEL_ID + "=?", new String[]{mData.getLevelId() + "", mData.getSubLevelId() + ""});
+                Log.e("DB", "isPoint upd :" + update);
+            } else {
+                long v = db.insert(DATABASE_IS_SAVE_POINT_TABLE, null, values);
+                Log.e("DB", "isPoint insert:" + v);
+
+            }
+
+
+        } catch (Exception e) {
+            Log.e("ERR", "mlock:" + e.toString());
+        }
+
+        if (cursor != null)
+            cursor.close();
+    }
+
+    public MData getIsSavePoint(int levelId, int subLevelId) {
+        ArrayList<MData> unlocks = new ArrayList<>();
+        MData mData = new MData();
+        String sql = "select * from " + DATABASE_IS_SAVE_POINT_TABLE + " where " + KEY_LEVEL_ID + "='" + levelId + "' "
+                + " AND " + KEY_SUB_LEVEL_ID + "='" + subLevelId + "'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                mData = new MData();
+                mData.setId(cursor.getInt(cursor.getColumnIndex(KEY_LOCK_ID)));
+                mData.setLevelId(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_ID)));
+                mData.setSubLevelId(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
+                mData.setIsSavePoint(cursor.getInt(cursor.getColumnIndex(KEY_IS_SAVE_POINT)));
+                Log.e("unlock", "lock size" + unlocks.size());
+                unlocks.add(mData);
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+
+        return mData;
+    }
+
 
     public String getPopUp(int levelId, int subLevelId) {
         String sql = "select * from " + DATABASE_SUB_LEVEL_TABLE + " where " + KEY_PARENT_ID + "='" + levelId + "'" + " AND " + KEY_SUB_LEVEL_ID + "='" + subLevelId + "'";
@@ -307,10 +371,10 @@ public class DatabaseHelper {
             cursor = db.rawQuery(sql, null);
             if (cursor != null && cursor.getCount() > 0) {
                 int update = db.update(DATABASE_DOWNLOAD_TABLE, values, KEY_URL + "=?", new String[]{mDownload.getUrl() + ""});
-                Log.e("downlaod", "content insert : " + update);
+                Log.e("downlaod", "content update : " + update);
             } else {
                 long v = db.insert(DATABASE_DOWNLOAD_TABLE, null, values);
-                Log.e("downlaod", "content insert : " + v);
+                Log.e("downlaod", "content urlName : " + mDownload.getUrl());
 
             }
 
@@ -473,7 +537,7 @@ public class DatabaseHelper {
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
-
+                mDownload = new MDownload();
                 mDownload.setLevelId(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_ID)));
                 mDownload.setSubLevelId(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
                 mDownload.setIsDownload(cursor.getInt(cursor.getColumnIndex(KEY_IS_DOWNLOAD)));

@@ -363,6 +363,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         saveEnglishContentsOfAllLevelToDb();
                         saveEnglishWordsToDb();
                         saveDownloadToDb();
+
                         getMathContentData();
 
                     }
@@ -377,7 +378,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
         );
     }
-
+    private void saveDownloadToDb() {
+        for (MDownload mDownload : Global.mDownloads) {
+            database.addDownloadData(mDownload);
+        }
+    }
     public void getDownload(int id, int isDown) {
         mDownloads = database.getDownloadData(id, isDown);
         Log.e("down", "is  " + mDownloads.size());
@@ -448,6 +453,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         saveBanglaContentsOfAllLevelToDb();
                         saveBanglaWordsToDb();
                         saveDownloadToDb();
+
+
+
                         getBanglaMathContentData();
                     }
 
@@ -520,6 +528,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         saveMathContentsOfAllLevelToDb();
                         saveMathWordsToDb();
                         saveDownloadToDb();
+
                         getBanglaContentData();
 
                     }
@@ -589,12 +598,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         saveBanglaMathContentsOfAllLevelToDb();
                         saveBanglaMathWordsToDb();
                         saveDownloadToDb();
+
+
                         getDownload(1, 0);
+                        allImageDownload();
                         getDownload(2, 0);
+                        allImageDownload();
                         getDownload(3, 0);
+                        allImageDownload();
                         getDownload(4, 0);
                         allImageDownload();
-                        allSoundDownload();
+//                        allSoundDownload();
                         FilesDownload.getInstance(MainActivity.this, "").start();
                     }
 
@@ -616,12 +630,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void saveLevelToDb() {
         for (MLevel data : Global.levels) {
             database.addLevelFromJson(data);
-        }
-    }
-
-    private void saveDownloadToDb() {
-        for (MDownload mDownload : Global.mDownloads) {
-            database.addDownloadData(mDownload);
         }
     }
 
@@ -688,11 +696,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mDownload = mDownloads.get(i);
             int init = mDownloads.get(0).getSubLevelId();
             int max = init + Global.LEVEL_DOWNLOAD;
-            if (mDownload.getSubLevelId() < max) {
+//            if (mDownload.getSubLevelId() < max) {
                 filesDownload.addUrl(Global.IMAGE_URL + mDownloads.get(i).getUrl());
                 mDownload.setIsDownload(1);
                 database.addDownloadData(mDownload);
-            }
+
+//            }
         }
     }
 

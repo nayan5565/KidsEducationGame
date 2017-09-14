@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.adapter.GameAdapter;
 import com.example.nayan.gameverson2.model.MAllContent;
+import com.example.nayan.gameverson2.model.MData;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
@@ -44,6 +45,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     public String parentName;
     public TextView txtName, txtTotalPoint, txtSubName;
     LinearLayout popUI;
+    private MData mData;
     private MSubLevel mSubLevel = new MSubLevel();
     private ArrayList<MAllContent> mAllContentArrayList;
     private ArrayList<MWords> wordsList;
@@ -90,6 +92,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void init() {
+        mData=new MData();
         imgHelp = (ImageView) findViewById(R.id.imgHelp);
         imgHelp.setOnClickListener(this);
         gameActivity = this;
@@ -139,6 +142,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         mSubLevel = database.getSubLevelData(Global.levelId).get(Global.SUB_INDEX_POSITION);
         mLock = database.getLocalData(Global.levelId, Global.subLevelId);
+        mData=database.getIsSavePoint(Global.levelId, Global.subLevelId);
+        Global.isSavePoint=mData.getIsSavePoint();
+        Log.e("isSavePoint"," is "+Global.isSavePoint);
         Global.popUp = mLock.getPopup();
 
         Log.e("TEST", Global.levelId + ":" + Global.subLevelId + ":" + content);
