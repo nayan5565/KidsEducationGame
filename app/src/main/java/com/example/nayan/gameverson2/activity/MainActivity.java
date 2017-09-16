@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPost.setUserEmail(Utils.getPhoneGmailAcc(this));
         Utils.postDataFromDatabase(mPost);
         Utils.logIn(mPost.getUserEmail(), "123456", mPost.getDeviceId());
-       syncApi();
+        syncApi();
 
         getLocalData();
 
@@ -140,18 +140,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void syncApi(){
-        AsyncHttpClient client =new AsyncHttpClient();
-        client.post("http://www.radhooni.com/content/match_game/v1/sync.php",new JsonHttpResponseHandler(){
+    public void syncApi() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post("http://www.radhooni.com/content/match_game/v1/sync.php", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
-                    String sync=DialogSoundOnOff.getPREF(MainActivity.this,"sync");
-                    if (!sync.equals(response.getString("update_date"))){
+                    String sync = DialogSoundOnOff.getPREF(MainActivity.this, "sync");
+                    if (!sync.equals(response.getString("update_date"))) {
                         getOnlineData();
                     }
-                    DialogSoundOnOff.savePref(MainActivity.this,"sync",response.getString("update_date"));
+                    DialogSoundOnOff.savePref(MainActivity.this, "sync", response.getString("update_date"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -331,11 +331,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 mDownload.setSubLevelId(Global.English.get(i).getMid());
                                 mDownload.setUrl(Global.English.get(i).getImg());
                                 Global.mDownloads.add(mDownload);
-                                mDownload = new MDownload();
-                                mDownload.setLevelId(3);
-                                mDownload.setLevelId(Global.English.get(i).getMid());
-                                mDownload.setUrl(Global.English.get(i).getAud());
-                                Global.mDownloads.add(mDownload);
+//                                mDownload = new MDownload();
+//                                mDownload.setLevelId(3);
+//                                mDownload.setSubLevelId(Global.English.get(i).getMid());
+//                                mDownload.setUrl(Global.English.get(i).getAud());
+//                                Global.mDownloads.add(mDownload);
                                 Global.English.get(i).setPresentType(i + 1);
                                 for (int j = 0; j < Global.English.get(i).getWords().size(); j++) {
                                     MWords mWords = Global.English.get(i).getWords().get(j);
@@ -345,14 +345,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                     mDownload = new MDownload();
                                     mDownload.setLevelId(3);
-                                    mDownload.setLevelId(Global.English.get(i).getMid());
+                                    mDownload.setSubLevelId(Global.English.get(i).getMid());
                                     mDownload.setUrl(Global.English.get(i).getWords().get(j).getWimg());
                                     Global.mDownloads.add(mDownload);
-                                    mDownload = new MDownload();
-                                    mDownload.setLevelId(3);
-                                    mDownload.setLevelId(Global.English.get(i).getMid());
-                                    mDownload.setUrl(Global.English.get(i).getWords().get(j).getWsound());
-                                    Global.mDownloads.add(mDownload);
+//                                    mDownload = new MDownload();
+//                                    mDownload.setLevelId(3);
+//                                    mDownload.setSubLevelId(Global.English.get(i).getMid());
+//                                    mDownload.setUrl(Global.English.get(i).getWords().get(j).getWsound());
+//                                    Global.mDownloads.add(mDownload);
 
                                 }
                             }
@@ -378,11 +378,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
         );
     }
+
     private void saveDownloadToDb() {
         for (MDownload mDownload : Global.mDownloads) {
             database.addDownloadData(mDownload);
         }
     }
+
     public void getDownload(int id, int isDown) {
         mDownloads = database.getDownloadData(id, isDown);
         Log.e("down", "is  " + mDownloads.size());
@@ -421,11 +423,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 mDownload.setSubLevelId(Global.BANGLA.get(i).getMid());
                                 mDownload.setUrl(Global.BANGLA.get(i).getImg());
                                 Global.mDownloads.add(mDownload);
-                                mDownload = new MDownload();
-                                mDownload.setLevelId(1);
-                                mDownload.setLevelId(Global.BANGLA.get(i).getMid());
-                                mDownload.setUrl(Global.BANGLA.get(i).getAud());
-                                Global.mDownloads.add(mDownload);
+//                                mDownload = new MDownload();
+//                                mDownload.setLevelId(1);
+//                                mDownload.setSubLevelId(Global.BANGLA.get(i).getMid());
+//                                mDownload.setUrl(Global.BANGLA.get(i).getAud());
+//                                Global.mDownloads.add(mDownload);
                                 Global.BANGLA.get(i).setPresentType(i + 1);
                                 for (int j = 0; j < Global.BANGLA.get(i).getWords().size(); j++) {
                                     MWords mWords = Global.BANGLA.get(i).getWords().get(j);
@@ -433,14 +435,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     Global.BANGLA_words.add(mWords);
                                     mDownload = new MDownload();
                                     mDownload.setLevelId(1);
-                                    mDownload.setLevelId(Global.BANGLA.get(i).getMid());
-                                    mDownload.setUrl(Global.BANGLA_words.get(j).getWimg());
+                                    mDownload.setSubLevelId(Global.BANGLA.get(i).getMid());
+                                    mDownload.setUrl(Global.BANGLA.get(i).getWords().get(j).getWimg());
                                     Global.mDownloads.add(mDownload);
-                                    mDownload = new MDownload();
-                                    mDownload.setLevelId(1);
-                                    mDownload.setLevelId(Global.BANGLA.get(i).getMid());
-                                    mDownload.setUrl(Global.BANGLA_words.get(j).getWsound());
-                                    Global.mDownloads.add(mDownload);
+//                                    mDownload = new MDownload();
+//                                    mDownload.setLevelId(1);
+//                                    mDownload.setSubLevelId(Global.BANGLA.get(i).getMid());
+//                                    mDownload.setUrl(Global.BANGLA_words.get(j).getWsound());
+//                                    Global.mDownloads.add(mDownload);
                                 }
                             }
                             Utils.log("bangla", "Wsize" + Global.BANGLA_words.size());
@@ -453,7 +455,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         saveBanglaContentsOfAllLevelToDb();
                         saveBanglaWordsToDb();
                         saveDownloadToDb();
-
 
 
                         getBanglaMathContentData();
@@ -494,12 +495,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 mDownload.setUrl(Global.Maths.get(i).getImg());
                                 Utils.log("url", "image " + mDownload.getUrl());
                                 Global.mDownloads.add(mDownload);
-                                mDownload = new MDownload();
-                                mDownload.setLevelId(4);
-                                mDownload.setLevelId(Global.Maths.get(i).getMid());
-                                mDownload.setUrl(Global.Maths.get(i).getAud());
-                                Utils.log("url", "sound " + mDownload.getUrl());
-                                Global.mDownloads.add(mDownload);
+//                                mDownload = new MDownload();
+//                                mDownload.setLevelId(4);
+//                                mDownload.setSubLevelId(Global.Maths.get(i).getMid());
+//                                mDownload.setUrl(Global.Maths.get(i).getAud());
+//                                Utils.log("url", "sound " + mDownload.getUrl());
+//                                Global.mDownloads.add(mDownload);
                                 Global.Maths.get(i).setPresentType(i + 1);
                                 for (int j = 0; j < Global.Maths.get(i).getWords().size(); j++) {
                                     MWords mWords = Global.Maths.get(i).getWords().get(j);
@@ -511,12 +512,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     mDownload.setUrl(Global.Maths.get(i).getWords().get(j).getWimg());
                                     Utils.log("url", "image w " + mDownload.getUrl());
                                     Global.mDownloads.add(mDownload);
-                                    mDownload = new MDownload();
-                                    mDownload.setLevelId(4);
-                                    mDownload.setLevelId(Global.Maths.get(i).getMid());
-                                    mDownload.setUrl(Global.Maths.get(i).getWords().get(j).getWsound());
-                                    Utils.log("url", "sound w " + mDownload.getUrl());
-                                    Global.mDownloads.add(mDownload);
+//                                    mDownload = new MDownload();
+//                                    mDownload.setLevelId(4);
+//                                    mDownload.setLevelId(Global.Maths.get(i).getMid());
+//                                    mDownload.setUrl(Global.Maths.get(i).getWords().get(j).getWsound());
+//                                    Utils.log("url", "sound w " + mDownload.getUrl());
+//                                    Global.mDownloads.add(mDownload);
 
                                 }
                             }
@@ -568,10 +569,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 mDownload.setUrl(Global.BANGLA_Maths.get(i).getImg());
                                 Global.mDownloads.add(mDownload);
                                 mDownload = new MDownload();
-                                mDownload.setLevelId(2);
-                                mDownload.setLevelId(Global.BANGLA_Maths.get(i).getMid());
-                                mDownload.setUrl(Global.BANGLA_Maths.get(i).getAud());
-                                Global.mDownloads.add(mDownload);
+//                                mDownload.setLevelId(2);
+//                                mDownload.setSubLevelId(Global.BANGLA_Maths.get(i).getMid());
+//                                mDownload.setUrl(Global.BANGLA_Maths.get(i).getAud());
+//                                Global.mDownloads.add(mDownload);
                                 Global.BANGLA_Maths.get(i).setPresentType(i + 1);
                                 for (int j = 0; j < Global.BANGLA_Maths.get(i).getWords().size(); j++) {
                                     MWords mWords = Global.BANGLA_Maths.get(i).getWords().get(j);
@@ -579,14 +580,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     Global.BANGLA_MATH_words.add(mWords);
                                     mDownload = new MDownload();
                                     mDownload.setLevelId(2);
-                                    mDownload.setLevelId(Global.BANGLA_Maths.get(i).getMid());
+                                    mDownload.setSubLevelId(Global.BANGLA_Maths.get(i).getMid());
                                     mDownload.setUrl(Global.BANGLA_Maths.get(i).getWords().get(j).getWimg());
                                     Global.mDownloads.add(mDownload);
-                                    mDownload = new MDownload();
-                                    mDownload.setLevelId(2);
-                                    mDownload.setLevelId(Global.BANGLA_Maths.get(i).getMid());
-                                    mDownload.setUrl(Global.BANGLA_Maths.get(i).getWords().get(j).getWsound());
-                                    Global.mDownloads.add(mDownload);
+//                                    mDownload = new MDownload();
+//                                    mDownload.setLevelId(2);
+//                                    mDownload.setLevelId(Global.BANGLA_Maths.get(i).getMid());
+//                                    mDownload.setUrl(Global.BANGLA_Maths.get(i).getWords().get(j).getWsound());
+//                                    Global.mDownloads.add(mDownload);
 
                                 }
                             }
@@ -599,7 +600,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         saveBanglaMathWordsToDb();
                         saveDownloadToDb();
 
-
+                        int c=0;
+                        int d=0;
                         getDownload(1, 0);
                         allImageDownload();
                         getDownload(2, 0);
@@ -608,15 +610,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         allImageDownload();
                         getDownload(4, 0);
                         allImageDownload();
+//                        allImageDownload(0, 0);
+//                        for (int i = 0; i < mDownloads.size(); i++) {
+//
+//                            c++;
+//                            d++;
+//                        }
+
+//                        getDownload(2, 0);
+//                        allImageDownload(0, 0);
+//                        for (int i = 1; i < mDownloads.size(); i++) {
+//                            allImageDownload(i, 1);
+//                        }
+//                        getDownload(3, 0);
+//                        allImageDownload(0, 0);
+//                        for (int i = 1; i < mDownloads.size(); i++) {
+//                            allImageDownload(i, 1);
+//                        }
+//                        getDownload(4, 0);
+//                        allImageDownload(0, 0);
+//                        for (int i = 1; i < mDownloads.size(); i++) {
+//                            allImageDownload(i, 1);
+//                            FilesDownload.getInstance(MainActivity.this, "", 1).start();
+//                        }
 //                        allSoundDownload();
-                        FilesDownload.getInstance(MainActivity.this, "").start();
+                        FilesDownload.getInstance(MainActivity.this, "",0).start();
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         super.onFailure(statusCode, headers, responseString, throwable);
                         B_URL = Global.ALTER_URL;
-                        FilesDownload.getInstance(MainActivity.this, "").start();
+                        FilesDownload.getInstance(MainActivity.this, "", 0).start();
                         Utils.log("s", "s");
                     }
                 }
@@ -691,22 +716,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void allImageDownload() {
-        FilesDownload filesDownload = FilesDownload.getInstance(this, bothImg);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, bothImg, 0);
         for (int i = 0; i < mDownloads.size(); i++) {
             mDownload = mDownloads.get(i);
             int init = mDownloads.get(0).getSubLevelId();
             int max = init + Global.LEVEL_DOWNLOAD;
-//            if (mDownload.getSubLevelId() < max) {
+            if (mDownload.getSubLevelId() < max) {
                 filesDownload.addUrl(Global.IMAGE_URL + mDownloads.get(i).getUrl());
                 mDownload.setIsDownload(1);
                 database.addDownloadData(mDownload);
 
-//            }
+            }
         }
     }
 
     public void allSoundDownload() {
-        FilesDownload filesDownload = FilesDownload.getInstance(this, bothSnd);
+        FilesDownload filesDownload = FilesDownload.getInstance(this, bothSnd, 0);
         for (int i = 0; i < mDownloads.size(); i++) {
             int init = mDownloads.get(0).getSubLevelId();
             int max = init + Global.LEVEL_DOWNLOAD;

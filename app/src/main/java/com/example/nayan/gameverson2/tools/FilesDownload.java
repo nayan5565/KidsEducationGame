@@ -4,9 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.example.nayan.gameverson2.R;
 
@@ -29,16 +31,19 @@ public class FilesDownload {
     private String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "testDownload";
     private long total = 0, downloaded;
     private ProgressDialog dialog;
+    private ProgressBar progressBar;
     private ArrayList<String> urls;
+    private int dShow;
     private ArrayList<String> dirs;
 
     public FilesDownload() {
     }
 
-    public static FilesDownload getInstance(Context context, String dir) {
+    public static FilesDownload getInstance(Context context, String dir, int dShow) {
         if (instance == null) instance = new FilesDownload();
         instance.dir = dir;
         instance.context = context;
+        instance.dShow = dShow;
         return instance;
     }
 //    public static FilesDownload newInstance(Context context, String image) {
@@ -77,16 +82,19 @@ public class FilesDownload {
         @Override
         protected void onPreExecute() {
             Log.e(dir, "start");
-            dialog = ProgressDialog.show(context, null, "Downloading...");
+//            progressBar.setBackgroundResource(R.drawable.progressbar);
 //            dialog = new ProgressDialog(context);
 //            dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 //            dialog.setTitle("Downloading...");
 
 
-
 //            dialog.setMax(100);
 //            dialog.setProgress(0);
-            dialog.show();
+            if (dShow < 1) {
+                dialog = ProgressDialog.show(context, null, "Downloading...");
+
+            }
+
 
             super.onPreExecute();
         }
