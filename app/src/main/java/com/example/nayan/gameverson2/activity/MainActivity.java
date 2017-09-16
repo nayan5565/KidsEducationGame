@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +47,8 @@ import java.util.Arrays;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.google.android.gms.analytics.internal.zzy.p;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String PARENT = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "MatchGame";
     public static String image = PARENT + File.separator + "AllImage";
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MDownload mDownload;
     ArrayList<MDownload> mDownloads;
     ArrayList<MDownload> banmDownloads;
+    Handler handler;
     ArrayList<MDownload> ongkomDownloads;
     ArrayList<MDownload> mathmDownloads;
     Dialog dialog1;
@@ -90,9 +94,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getLocalData();
 
 
+
     }
 
     private void init() {
+        handler = new Handler();
         Global.mDownloads = new ArrayList<MDownload>();
         mDownloads = new ArrayList<MDownload>();
         banmDownloads = new ArrayList<MDownload>();
@@ -169,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //And finally ask for the permission
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.GET_ACCOUNTS, Manifest.permission.INTERNET}, STORAGE_PERMISSION_CODE);
+                Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.INTERNET}, STORAGE_PERMISSION_CODE);
     }
 
     @Override
@@ -600,8 +606,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         saveBanglaMathWordsToDb();
                         saveDownloadToDb();
 
-                        int c=0;
-                        int d=0;
+
+
+                        int c = 0;
+                        int d = 0;
                         getDownload(1, 0);
                         allImageDownload();
                         getDownload(2, 0);
@@ -634,7 +642,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                            FilesDownload.getInstance(MainActivity.this, "", 1).start();
 //                        }
 //                        allSoundDownload();
-                        FilesDownload.getInstance(MainActivity.this, "",0).start();
+                        FilesDownload.getInstance(MainActivity.this, "", 0).start();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.e("image download"," 2nd time ");
+                                getDownload(1, 0);
+                                allImageDownload2();
+                                getDownload(2, 0);
+                                allImageDownload2();
+                                getDownload(3, 0);
+                                allImageDownload2();
+                                getDownload(4, 0);
+                                allImageDownload2();
+                                FilesDownload.getInstance(MainActivity.this, "", 1).start();
+
+                            }
+                        }, 480000);
+
+
                     }
 
                     @Override
@@ -720,6 +746,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < mDownloads.size(); i++) {
             mDownload = mDownloads.get(i);
             int init = mDownloads.get(0).getSubLevelId();
+            int max = init + Global.LEVEL_DOWNLOAD;
+            if (mDownload.getSubLevelId() < max) {
+                filesDownload.addUrl(Global.IMAGE_URL + mDownloads.get(i).getUrl());
+                mDownload.setIsDownload(1);
+
+            }   database.addDownloadData(mDownload);
+
+        }
+    }
+
+    public void allImageDownload2() {
+        FilesDownload filesDownload = FilesDownload.getInstance(this, bothImg, 1);
+        for (int i = 1; i < mDownloads.size(); i++) {
+            mDownload = mDownloads.get(i);
+            int init = mDownloads.get(i).getSubLevelId();
             int max = init + Global.LEVEL_DOWNLOAD;
             if (mDownload.getSubLevelId() < max) {
                 filesDownload.addUrl(Global.IMAGE_URL + mDownloads.get(i).getUrl());
