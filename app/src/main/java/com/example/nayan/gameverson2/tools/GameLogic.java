@@ -179,6 +179,7 @@ public class GameLogic {
         }
 
         if (count == listSize) {
+            GameActivity.getInstance().getIsSaveDataFromDb(Global.levelId, Global.subLevelId);
             savePoint(listSize);
             isSavePoint();
 //            DatabaseHelper db = new DatabaseHelper(context);
@@ -195,12 +196,7 @@ public class GameLogic {
 //                Log.e("isSaveP", " is " + lock1.getIsSavePoint());
 //            }
 
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-//                    resetList(listSize);
-                }
-            }, 1000);
+
             if (Global.levelId == 1) {
                 GameActivity.getInstance().txtTotalPoint.setText(Utils.convertNum(Global.totalPoint + ""));
             }
@@ -218,7 +214,7 @@ public class GameLogic {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-//                    resetList(listSize);
+                    resetList(listSize);
                     dialogShowForLevelClear(listSize);
                 }
             }, 1500);
@@ -630,6 +626,7 @@ public class GameLogic {
 
 
                 if (matchWinCount == listSize / 2) {
+                    GameActivity.getInstance().getIsSaveDataFromDb(Global.levelId, Global.subLevelId);
                     savePoint(listSize);
                     isSavePoint();
 //                    DatabaseHelper db = new DatabaseHelper(context);

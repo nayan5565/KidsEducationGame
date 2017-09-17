@@ -364,7 +364,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             public void onClick(View view) {
                 if (Global.GAME_INDEX_POSITION >= textArrayList.size() - 1) {
 //                    Utils.toastMassage(context, "level finish");
-
+                    GameActivity.getInstance().getIsSaveDataFromDb(Global.levelId, Global.subLevelId);
                     savePoint(textArrayList.size() - 1);
                     GameLogic.getInstance(context).isSavePoint();
                     dialogShowForLevelClear(textArrayList.size());
