@@ -39,11 +39,11 @@ public class FilesDownload {
     public FilesDownload() {
     }
 
-    public static FilesDownload getInstance(Context context, String dir, int dShow) {
+    public static FilesDownload getInstance(Context context, String dir) {
         if (instance == null) instance = new FilesDownload();
         instance.dir = dir;
         instance.context = context;
-        instance.dShow = dShow;
+//        instance.dShow = dShow;
         return instance;
     }
 //    public static FilesDownload newInstance(Context context, String image) {
@@ -90,10 +90,10 @@ public class FilesDownload {
 
 //            dialog.setMax(100);
 //            dialog.setProgress(0);
-            if (dShow < 1) {
+//            if (dShow < 1) {
                 dialog = ProgressDialog.show(context, null, "Downloading...");
 
-            }
+//            }
 
 
             super.onPreExecute();

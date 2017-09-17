@@ -843,7 +843,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             @Override
             public void onClick(View v) {
 
-                GameActivity.getInstance().getIsSaveDataFromDb();
+                GameActivity.getInstance().getIsSaveDataFromDb(Global.levelId, Global.subLevelId);
 //                GameLogic.getInstance(context).resetList(listSize);
                 dialog.dismiss();
             }
@@ -867,7 +867,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     Global.subLevelId = mSubLevels.get(Global.SUB_INDEX_POSITION).getLid();
                     Global.logic = mSubLevels.get(Global.SUB_INDEX_POSITION).getLogic();
                     Global.CONTENT = mSubLevels.get(Global.SUB_INDEX_POSITION).getContent();
-
+                    GameActivity.getInstance().getIsSaveDataFromDb(Global.levelId, Global.subLevelId);
                     GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION, Global.CONTENT);
                 }
                 dialog.dismiss();
@@ -882,7 +882,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             }
         });
 
-        if (Global.isSavePoint==0){
+        if (Global.isSavePoint == 0) {
             if (Global.levelId == 1) {
                 txtScore.setText("Score :  " + Utils.convertNum(present + ""));
             }

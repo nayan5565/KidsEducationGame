@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.adapter.SubLevelAdapter;
@@ -25,6 +26,7 @@ import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
 import com.example.nayan.gameverson2.tools.DialogSoundOnOff;
+import com.example.nayan.gameverson2.tools.FilesDownload;
 import com.example.nayan.gameverson2.tools.Global;
 import com.example.nayan.gameverson2.tools.MyGoogleAnalytics;
 import com.example.nayan.gameverson2.tools.Utils;
@@ -38,7 +40,8 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
     public static ArrayList<MSubLevel> mSubLevels;
     private static int value;
-    private static SubLevelAdapter subLevelAdapter;
+    private SubLevelAdapter subLevelAdapter;
+
     private static ArrayList<MLevel> mLevels;
     private static ArrayList<MAllContent> mAllContents;
     private static MSubLevel mSubLevel = new MSubLevel();
@@ -71,6 +74,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         MyGoogleAnalytics.getInstance().setupAnalytics("SubLevel Activity");
         getLocalData();
         prepareDisplay();
+//        imageDownload();
 
     }
 
@@ -80,7 +84,6 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         getLocalData();
         prepareDisplay();
     }
-
 
     private void downloadAssets() {
 //        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -163,7 +166,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void getLocalData() {
-        mAllContents = database.getAllContentsData(Global.levelId, Global.subLevelId, Global.logic, 1);
+        mAllContents = database.getAllContentsData(Global.levelId, Global.subLevelId);
         Log.e("allData", "is" + mAllContents.size());
 
         mLock = database.getLocalData(Global.levelId, Global.subLevelId);
@@ -177,7 +180,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
         Global.parentName = mSubLevels;
-//        mLevels = database.getLevelData(mLevel.getLid());
+//        mLevels = database.getLevelData(mLevel.getContent());
         Log.e("getDb", "sublevel : " + mSubLevels.size());
 //all sub level unlock for sub_level_activity
         mSubLevels.get(0).setUnlockNextLevel(1);

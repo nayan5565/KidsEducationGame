@@ -767,7 +767,7 @@ public class GameLogic {
 
                 Log.e("totalpoint", "tpoint is" + Global.totalPoint);
 //                GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION);
-                GameActivity.getInstance().getIsSaveDataFromDb();
+                GameActivity.getInstance().getIsSaveDataFromDb(Global.levelId, Global.subLevelId);
                 resetList(listSize);
                 dialog.dismiss();
             }
@@ -792,7 +792,7 @@ public class GameLogic {
                     Global.subLevelId = mSubLevels.get(Global.SUB_INDEX_POSITION).getLid();
                     Global.logic = mSubLevels.get(Global.SUB_INDEX_POSITION).getLogic();
                     Global.CONTENT = mSubLevels.get(Global.SUB_INDEX_POSITION).getContent();
-
+                    GameActivity.getInstance().getIsSaveDataFromDb(Global.levelId, Global.subLevelId);
                     GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION, Global.CONTENT);
                 }
                 dialog.dismiss();
@@ -922,6 +922,7 @@ public class GameLogic {
 
     public void savePoint(int listSize) {
         presentPoint = pointCount(listSize);
+        Log.e("isSavePoint", " present " + Global.isSavePoint);
         if (Global.isSavePoint == 0) {
             Global.totalPoint = Global.totalPoint + presentPoint;
             saveDb();

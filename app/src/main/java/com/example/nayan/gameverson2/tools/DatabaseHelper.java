@@ -84,7 +84,7 @@ public class DatabaseHelper {
             + KEY_TOTAL_S_LEVEL + " text)";
     private static final String DATABASE_CREATE_ALL_CONTENTS_TABLE = "create table if not exists "
             + DATABASE_ALL_CONTENTS_TABLE + "("
-            + KEY_LEVEL_ID + " integer, "
+            + KEY_CONTENT + " integer, "
             + KEY_LEVEL + " integer, "
             + KEY_MODEL_ID + " integer primary key, "
             + KEY_PRESENT_ID + " integer, "
@@ -262,6 +262,7 @@ public class DatabaseHelper {
         if (cursor != null)
             cursor.close();
     }
+
     public void isPointSave(MData mData) {
         Cursor cursor = null;
         try {
@@ -599,7 +600,7 @@ public class DatabaseHelper {
         Cursor cursor = null;
         try {
             ContentValues values = new ContentValues();
-            values.put(KEY_LEVEL_ID, mAllContent.getLid());
+            values.put(KEY_CONTENT, mAllContent.getContent());
             values.put(KEY_MODEL_ID, mAllContent.getMid());
             values.put(KEY_LEVEL, mAllContent.getLevel());
             values.put(KEY_IMAGE, mAllContent.getImg());
@@ -621,7 +622,7 @@ public class DatabaseHelper {
             } else {
                 long v = db.insert(DATABASE_ALL_CONTENTS_TABLE, null, values);
                 Log.e("allContents", " insert text: " + mAllContent.getTxt());
-                Log.e("allContents", " insert lid: " + mAllContent.getLid());
+                Log.e("allContents", " insert lid: " + mAllContent.getContent());
                 Log.e("allContents", " insert mid: " + mAllContent.getMid());
 
             }
@@ -635,10 +636,10 @@ public class DatabaseHelper {
             cursor.close();
     }
 
-    public ArrayList<MAllContent> getAllContentsData(int levelId, int subLevelId, int logic, int contentsId) {
+    public ArrayList<MAllContent> getAllContentsData(int levelId, int content) {
         ArrayList<MAllContent> mAllContents = new ArrayList<>();
         MAllContent mAllContent = new MAllContent();
-        String sql = "select * from " + DATABASE_ALL_CONTENTS_TABLE + " where " + KEY_LEVEL + "='" + levelId + "'" + " AND " + KEY_LEVEL_ID + "='" + subLevelId + "'";
+        String sql = "select * from " + DATABASE_ALL_CONTENTS_TABLE + " where " + KEY_LEVEL + "='" + levelId + "'" + " AND " + KEY_CONTENT + "='" + content + "'";
 //        String sql = "select * from " + DATABASE_ALL_CONTENTS_TABLE + " where " + KEY_PARENT_ID + "='" + levelId + "'" + " AND " + KEY_SUB_LEVEL_ID + "='" + subLevelId + "'" + " AND " + KEY_LOGIC + "='" + logic + "'" + " AND " + KEY_LEVEL_ID + "='" + contentsId + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -647,7 +648,7 @@ public class DatabaseHelper {
                 mAllContent.setParentLevelId(cursor.getInt(cursor.getColumnIndex(KEY_PARENT_ID)));
                 mAllContent.setSublevelId(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
                 mAllContent.setLogic(cursor.getInt(cursor.getColumnIndex(KEY_LOGIC)));
-                mAllContent.setLid(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_ID)));
+                mAllContent.setContent(cursor.getInt(cursor.getColumnIndex(KEY_CONTENT)));
                 mAllContent.setLevel(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL)));
                 mAllContent.setMid(cursor.getInt(cursor.getColumnIndex(KEY_MODEL_ID)));
                 mAllContent.setAud(cursor.getString(cursor.getColumnIndex(KEY_SOUNDS)));
@@ -724,6 +725,80 @@ public class DatabaseHelper {
         cursor.close();
 
         return assetArrayList;
+    }
+
+    public ArrayList<String> getContentUrl(int levelId, int content) {
+        ArrayList<String> cUrls = new ArrayList<>();
+
+        String sql = "select * from " + DATABASE_ALL_CONTENTS_TABLE + " where " + KEY_LEVEL + "='" + levelId + "'" + " AND " + KEY_CONTENT + "='" + content + "'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                cursor.getInt(cursor.getColumnIndex(KEY_LEVEL));
+                cursor.getInt(cursor.getColumnIndex(KEY_CONTENT));
+                cUrls.add(cursor.getString(cursor.getColumnIndex(KEY_IMAGE)));
+
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        return cUrls;
+    }
+
+    public ArrayList<String> getWordsUrl(int contentId) {
+        ArrayList<String> wUrls = new ArrayList<>();
+
+        String sql = "select * from " + DATABASE_ALL_WORDS_TABLE + " where " + KEY_WORDS_CONTENTS_ID + "='" + contentId + "'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                cursor.getInt(cursor.getColumnIndex(KEY_WORDS_CONTENTS_ID));
+                wUrls.add(cursor.getString(cursor.getColumnIndex(KEY_WORDS_IMG)));
+
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        return wUrls;
+    }
+
+    public ArrayList<Integer> getContent(int parentId) {
+        ArrayList<Integer> conten = new ArrayList<>();
+
+        String sql = "select * from " + DATABASE_SUB_LEVEL_TABLE + " where " + KEY_PARENT_ID + "='" + parentId + "'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                cursor.getInt(cursor.getColumnIndex(KEY_PARENT_ID));
+                conten.add(cursor.getInt(cursor.getColumnIndex(KEY_CONTENT)));
+
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        return conten;
+    }
+
+    public ArrayList<Integer> getContentsId(int levelId,int content) {
+        ArrayList<Integer> contenId = new ArrayList<>();
+
+        String sql = "select * from " + DATABASE_ALL_CONTENTS_TABLE + " where " + KEY_LEVEL + "='" + levelId + "'" + " AND " + KEY_CONTENT + "='" + content + "'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                cursor.getInt(cursor.getColumnIndex(KEY_LEVEL));
+                cursor.getInt(cursor.getColumnIndex(KEY_CONTENT));
+                contenId.add(cursor.getInt(cursor.getColumnIndex(KEY_MODEL_ID)));
+
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        return contenId;
     }
 
     private void close() {

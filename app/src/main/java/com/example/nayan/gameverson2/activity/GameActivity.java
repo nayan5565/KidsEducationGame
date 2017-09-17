@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.adapter.GameAdapter;
@@ -75,11 +76,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         init();
         MyGoogleAnalytics.getInstance().setupAnalytics("Game Activity");
         getLocalData(content);
-        getIsSaveDataFromDb();
+        getIsSaveDataFromDb(Global.levelId, Global.subLevelId);
         prepareDisplay();
 
 //        getPopUp();
-
+        if (Global.levelId == 1) {
+            if (Global.subLevelId == 2) {
+                MainActivity.getInstance().banglaImage(6);
+                MainActivity.getInstance().imageDownload();
+            }
+        }
 
     }
 
@@ -93,7 +99,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void init() {
-        mData=new MData();
+        mData = new MData();
         imgHelp = (ImageView) findViewById(R.id.imgHelp);
         imgHelp.setOnClickListener(this);
         gameActivity = this;
@@ -134,11 +140,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-public void getIsSaveDataFromDb(){
-    mData=database.getIsSavePoint(Global.levelId, Global.subLevelId);
-    Global.isSavePoint=mData.getIsSavePoint();
-    Log.e("isSavePoint"," is "+Global.isSavePoint);
-}
+
+    public void getIsSaveDataFromDb(int level, int subLevel) {
+        mData = database.getIsSavePoint(level, subLevel);
+        Global.isSavePoint = mData.getIsSavePoint();
+        Log.e("isSavePoint", " is " + Global.isSavePoint);
+        Log.e("isSavePoint", " level " + level);
+        Log.e("isSavePoint", " is " + subLevel);
+    }
 
     public void getLocalData(int contents) {
 //        ArrayList<MAllContent> contentArrayList1 = database.getAllContentsData(Global.levelId, content, 0, 0);
@@ -155,7 +164,7 @@ public void getIsSaveDataFromDb(){
         if (Global.logic == 1) {
 
 
-            mAllContentArrayList = database.getAllContentsData(Global.levelId, contents, 0, 0);
+            mAllContentArrayList = database.getAllContentsData(Global.levelId, contents);
 //            Collections.shuffle(mAllContentArrayList);
         }
 
@@ -176,17 +185,17 @@ public void getIsSaveDataFromDb(){
         else if (Global.logic == 2) {
 
             ArrayList<MAllContent> realAssets = new ArrayList<>();
-            realAssets = database.getAllContentsData(Global.levelId, contents, 0, 0);
+            realAssets = database.getAllContentsData(Global.levelId, contents);
             mAllContentArrayList = generatesTxtSen(realAssets);
             Collections.shuffle(mAllContentArrayList);
         } else if (Global.logic == 3) {
 
-            mAllContentArrayList = database.getAllContentsData(Global.levelId, contents, 0, 0);
+            mAllContentArrayList = database.getAllContentsData(Global.levelId, contents);
             Collections.shuffle(mAllContentArrayList);
         } else if (Global.logic == 4) {
 
             ArrayList<MAllContent> realAssets = new ArrayList<>();
-            realAssets = database.getAllContentsData(Global.levelId, contents, 0, 0);
+            realAssets = database.getAllContentsData(Global.levelId, contents);
 
             mAllContentArrayList = generatesTxtImg(realAssets);
             Collections.shuffle(mAllContentArrayList);
