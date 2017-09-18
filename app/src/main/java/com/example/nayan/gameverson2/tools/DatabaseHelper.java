@@ -47,7 +47,7 @@ public class DatabaseHelper {
     private static final String KEY_CONTENT = "content";
     private static final String KEY_POPUP = "pop_up";
     private static final String KEY_PRESENT_POINT = "present_point";
-    private static final String KEY_COLOR = "color";
+    private static final String KEY_COLOR = "color_c";
     private static final String KEY_UPDATE_DATE = "update_date";
     private static final String KEY_TOTAL_S_LEVEL = "total_slevel";
     private static final String KEY_DIFFICULTY = "difficulty";
@@ -110,6 +110,7 @@ public class DatabaseHelper {
             + KEY_DOWNLOAD + " integer, "
             + KEY_UNLOCK + " integer, "
             + KEY_POINT + " integer, "
+            + KEY_COLOR + " integer, "
             + KEY_POPUP + " integer, "
             + KEY_PARENT_NAME + " text, "
             + KEY_HOW_TO + " text, "
@@ -135,6 +136,7 @@ public class DatabaseHelper {
             + KEY_POINT + " integer, "
             + KEY_UNLOCK + " integer, "
             + KEY_TOTAL_POINT + " integer, "
+            + KEY_COLOR + " integer, "
             + KEY_POPUP + " integer, "
             + KEY_IS_SAVE_POINT + " integer, "
             + KEY_LEVEL_ID + " integer, "
@@ -243,6 +245,7 @@ public class DatabaseHelper {
             values.put(KEY_PARENT_ID, mSubLevel.getParentId());
             values.put(KEY_UNLOCK, mSubLevel.getUnlockNextLevel());
             values.put(KEY_CONTENT, mSubLevel.getContent());
+            values.put(KEY_COLOR, mSubLevel.getColor());
             values.put(KEY_POINT, mSubLevel.getBestPoint());
             values.put(KEY_PARENT_NAME, mSubLevel.getParentName());
             values.put(KEY_NAME, mSubLevel.getName());
@@ -407,6 +410,7 @@ public class DatabaseHelper {
             values.put(KEY_SUB_LEVEL_ID, mLock.getSub_level_id());
             values.put(KEY_POINT, mLock.getBestPoint());
             values.put(KEY_POPUP, mLock.getPopup());
+            values.put(KEY_COLOR, mLock.getColor());
             values.put(KEY_IS_SAVE_POINT, mLock.getIsSavePoint());
             values.put(KEY_TOTAL_POINT, mLock.getTotal_pont());
             values.put(KEY_UNLOCK, mLock.getUnlockNextLevel());
@@ -502,6 +506,7 @@ public class DatabaseHelper {
                 mLock = new MLock();
                 mLock.setId(cursor.getInt(cursor.getColumnIndex(KEY_LOCK_ID)));
                 mLock.setLevel_id(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_ID)));
+                mLock.setColor(cursor.getInt(cursor.getColumnIndex(KEY_COLOR)));
                 mLock.setSub_level_id(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
                 mLock.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
                 mLock.setPopup(cursor.getInt(cursor.getColumnIndex(KEY_POPUP)));
@@ -569,7 +574,7 @@ public class DatabaseHelper {
         ArrayList<MSubLevel> assetArrayList = new ArrayList<>();
         Log.e("DB", "S1");
         MSubLevel mSubLevel;
-        String sql = "select a.s_lid,a.pNm,a.content,a.how_to,a.k_Logic,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.best_point from sub a left join lock_tb b on a.pid=b.lid AND a.s_lid=b.s_lid where a." + KEY_PARENT_ID + "='" + id + "'";
+        String sql = "select a.s_lid,a.pNm,a.content,a.how_to,a.k_Logic,a.pid,a.name,a.coins_price,a.no_of_coins,b.un_lock,b.color_c,b.best_point from sub a left join lock_tb b on a.pid=b.lid AND a.s_lid=b.s_lid where a." + KEY_PARENT_ID + "='" + id + "'";
 //                " from " + DATABASE_SUB_LEVEL_TABLE + " a where " + KEY_PARENT_ID + "='" + id + "'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -577,6 +582,7 @@ public class DatabaseHelper {
             do {
                 mSubLevel = new MSubLevel();
                 mSubLevel.setLid(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
+                mSubLevel.setColor(cursor.getInt(cursor.getColumnIndex(KEY_COLOR)));
                 mSubLevel.setLogic(cursor.getInt(cursor.getColumnIndex(KEY_LOGIC)));
                 mSubLevel.setContent(cursor.getInt(cursor.getColumnIndex(KEY_CONTENT)));
                 mSubLevel.setUnlockNextLevel(cursor.getInt(cursor.getColumnIndex(KEY_UNLOCK)));
@@ -739,6 +745,7 @@ public class DatabaseHelper {
         if (cursor != null)
             cursor.close();
     }
+
     public MColor getColor(int levelId, int subLevelId) {
         ArrayList<MColor> mColors = new ArrayList<>();
         MColor mColor = new MColor();

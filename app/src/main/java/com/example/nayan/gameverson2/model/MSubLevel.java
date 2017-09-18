@@ -17,6 +17,15 @@ public class MSubLevel {
     private String no_of_coins;
     private int unlockNextLevel;
     private int content;
+    private int color;
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
 
     public int getContent() {
         return content;

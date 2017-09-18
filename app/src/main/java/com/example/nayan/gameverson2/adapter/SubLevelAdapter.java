@@ -87,10 +87,10 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
         if (mSubLevel.getUnlockNextLevel() == 1) {
             holder.imgLock.setVisibility(View.GONE);
             holder.imgSub.setImageResource(R.drawable.sublevel_item_view);
-        } else if (mSubLevel.getUnlockNextLevel() == 2 && mSubLevel.getUnlockNextLevel() == 1) {
+        } else if (mSubLevel.getColor() == 1 && mSubLevel.getUnlockNextLevel() == 0) {
             holder.imgLock.setVisibility(View.VISIBLE);
             holder.imgSub.setImageResource(R.drawable.sublevel_item_view);
-        } else {
+        } else if (mSubLevel.getUnlockNextLevel() == 0) {
 //            if (mColor.getColor() == 1) {
 //                holder.imgLock.setVisibility(View.VISIBLE);
 //                holder.imgSub.setImageResource(R.drawable.sublevel_item_view);

@@ -7,6 +7,15 @@ public class MLock {
     private int unlockNextLevel;
     private int id;
     private int level_id;
+    private int color;
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
 
     public int getSub_level_id() {
         return sub_level_id;

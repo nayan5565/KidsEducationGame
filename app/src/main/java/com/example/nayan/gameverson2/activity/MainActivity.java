@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<Integer> allContentId = new ArrayList<>();
     ArrayList<String> cAllUrls = new ArrayList<>();
     ArrayList<String> uniquesUrls = new ArrayList<>();
-
+    private MColor mColor;
+    private ArrayList<MColor> mColors;
     private ArrayList<MLevel> levelsDatas;
     private String B_URL = Global.BASE_URL;
     private Button btnSetting, btnResult;
@@ -341,7 +342,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
-
+        mColors=new ArrayList<>();
         Global.URLS = new ArrayList<>();
         handler = new Handler();
         mainActivity = this;

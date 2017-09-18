@@ -77,7 +77,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         MyGoogleAnalytics.getInstance().setupAnalytics("SubLevel Activity");
         getLocalData();
         prepareDisplay();
-        color();
+//        color();
 //        imageDownload();
 
     }
@@ -189,9 +189,12 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
             lock.setLevel_id(1);
             lock.setSub_level_id(mSubLevels.get(i).getLid());
             Log.e("LOGIC", "sid:" + lock.getSub_level_id());
-            lock.setUnlockNextLevel(2);
+            lock.setColor(1);
             db.addLockData(lock);
+            mSubLevels.get(i).setColor(1);
         }
+
+
 
     }
 
