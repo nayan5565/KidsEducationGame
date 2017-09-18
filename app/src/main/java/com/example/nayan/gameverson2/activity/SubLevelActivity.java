@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.adapter.SubLevelAdapter;
 import com.example.nayan.gameverson2.model.MAllContent;
+import com.example.nayan.gameverson2.model.MColor;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
@@ -56,6 +57,8 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private Button back, btnSubSetting;
     private LinearLayout changeColor;
     private ImageView imageView, imgLevelName, imageHelp;
+    private MColor mColor;
+    private ArrayList<MColor> mColors;
 
 
     @Override
@@ -74,6 +77,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         MyGoogleAnalytics.getInstance().setupAnalytics("SubLevel Activity");
         getLocalData();
         prepareDisplay();
+        color();
 //        imageDownload();
 
     }
@@ -136,7 +140,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void init() {
-
+        mColors = new ArrayList<>();
         mLevels = new ArrayList<>();
         mAllContent = new MAllContent();
         mAllContents = new ArrayList<>();
@@ -162,6 +166,32 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         subLevelAdapter = new SubLevelAdapter(this);
 
+
+    }
+
+    private void color() {
+        String start = DialogSoundOnOff.getPREF(SubLevelActivity.this, Global.levelId + "");
+        int s = Integer.valueOf(start);
+        mColor = database.getColor(Global.levelId, Global.subLevelId);
+        for (int i = 0; i < s; i++) {
+            mColor = new MColor();
+            mColor.setLevelId(Global.levelId);
+            mColor.setSubLevelId(Global.subLevelId);
+            mColor.setColor(1);
+            mColors.add(mColor);
+            database.addcolor(mColor);
+        }
+        DatabaseHelper db = new DatabaseHelper(SubLevelActivity.this);
+        MLock lock;
+        for (int i = 0; i < s; i++) {
+            lock = new MLock();
+            lock = db.getLocalData(Global.levelId, mSubLevels.get(i).getLid());
+            lock.setLevel_id(1);
+            lock.setSub_level_id(mSubLevels.get(i).getLid());
+            Log.e("LOGIC", "sid:" + lock.getSub_level_id());
+            lock.setUnlockNextLevel(2);
+            db.addLockData(lock);
+        }
 
     }
 

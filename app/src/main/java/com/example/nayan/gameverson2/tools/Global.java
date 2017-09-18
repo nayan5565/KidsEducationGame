@@ -62,6 +62,13 @@ public class Global {
     public static ArrayList<MWords> BANGLA_MATH_words;
     public static ArrayList<MAllContent> BANGLA_Maths;
     public static ArrayList<MAllContent> BANGLA;
+    public static int present_content;
+    public static int startDownAll;
+    public static int startDownBan;
+    public static int startDownOngk;
+    public static int startDownEng;
+    public static int startDownMath;
+    public static ArrayList<String> URLS;
     public static int popUp;
     public static String ADMIN = "dino.araf@gmail.com";
     public static String SUBJECT = "your_subject";

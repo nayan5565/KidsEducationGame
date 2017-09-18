@@ -80,12 +80,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         prepareDisplay();
 
 //        getPopUp();
-        if (Global.levelId == 1) {
-            if (Global.subLevelId == 2) {
-                MainActivity.getInstance().banglaImage(6);
-                MainActivity.getInstance().imageDownload();
-            }
-        }
+//        if (Global.levelId == 1) {
+//            if (Global.subLevelId == 2) {
+//                MainActivity.getInstance().banglaImage(6);
+//                MainActivity.getInstance().imageDownload();
+//            }
+//        }
 
     }
 
@@ -122,6 +122,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         parentName = Global.parentLevelName;
         Global.SUB_INDEX_POSITION = getIntent().getIntExtra("index", 0);
         Global.subLevelId = getIntent().getIntExtra("Sid", 0);
+        Global.present_content = getIntent().getIntExtra("content", 0);
         content = getIntent().getIntExtra("content", 0);
         gameAdapter = new GameAdapter(this);
         Log.e("content", " size " + content);
@@ -300,6 +301,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void refresh(int index, int contents) {
         subLevelName = Global.parentName.get(index).getName();
+        Global.present_content = Global.parentName.get(index).getContent();
         how = Global.parentName.get(index).getHowto();
         Log.e("sublevel name", "s  n :" + subLevelName);
         parentName = Global.parentName.get(index).getParentName();

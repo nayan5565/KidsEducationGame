@@ -2,6 +2,7 @@ package com.example.nayan.gameverson2.activity;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.model.MAllContent;
+import com.example.nayan.gameverson2.model.MColor;
 import com.example.nayan.gameverson2.model.MDownload;
 import com.example.nayan.gameverson2.model.MLevel;
 import com.example.nayan.gameverson2.model.MPost;
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<Integer> allContentId = new ArrayList<>();
     ArrayList<String> cAllUrls = new ArrayList<>();
     ArrayList<String> uniquesUrls = new ArrayList<>();
+
     private ArrayList<MLevel> levelsDatas;
     private String B_URL = Global.BASE_URL;
     private Button btnSetting, btnResult;
@@ -108,14 +111,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void banglaImage(int start) {
+        cAllUrls.clear();
         conten = database.getContent(1);
 
-        int max = start + 6;
+        int max = start + 3;
         if (max > conten.size()) {
             max = conten.size();
         }
 
+        int maxContent = conten.get(max - 1);
+        Utils.savePref(MainActivity.this, "1", maxContent + "");
+        Global.startDownBan = max;
+
         for (int i = start; i < max; i++) {
+
             cUrls = database.getContentUrl(1, conten.get(i));
 
             cAllUrls.addAll(cUrls);
@@ -139,6 +148,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 uniquesUrls.add(allWUrls.get(i));
             }
         }
+        Global.URLS.addAll(uniquesUrls);
+        Log.e("Urls", "content " + conten.size());
+        Log.e("Urls", "cont size " + cUrls.size());
+        Log.e("Urls", "content id " + allContentId.size());
+        Log.e("Urls", "cont unique size " + uniquesUrls.size());
+        Log.e("Urls", "cont all size " + cAllUrls.size());
+        Log.e("Urls", "word size " + allWUrls.size());
+    }
+
+    public void allCatagoryImage(int start, int level, Context context) {
+        cAllUrls.clear();
+        conten = database.getContent(level);
+
+        int max = start + 6;
+        if (max > conten.size()) {
+            max = conten.size();
+        }
+
+        int maxContent = conten.get(max - 1);
+        Utils.savePref(context, level + "", maxContent + "");
+        DialogSoundOnOff.savePref(context, level + "", max + "");
+
+
+        for (int i = start; i < max; i++) {
+            cUrls = database.getContentUrl(level, conten.get(i));
+
+            cAllUrls.addAll(cUrls);
+            contenIds = database.getContentsId(level, conten.get(i));
+            allContentId.addAll(contenIds);
+
+        }
+
+        for (int i = 0; i < cAllUrls.size(); i++) {
+            if (!uniquesUrls.contains(cAllUrls.get(i))) {
+                uniquesUrls.add(cAllUrls.get(i));
+                for (int j = 0; j < allContentId.size(); j++) {
+                    wUrls = database.getWordsUrl(allContentId.get(j));
+                    allWUrls.addAll(wUrls);
+                }
+            }
+        }
+
+        for (int i = 0; i < allWUrls.size(); i++) {
+            if (!uniquesUrls.contains(allWUrls.get(i))) {
+                uniquesUrls.add(allWUrls.get(i));
+            }
+        }
+        Global.URLS.addAll(uniquesUrls);
         Log.e("Urls", "content " + conten.size());
         Log.e("Urls", "cont size " + cUrls.size());
         Log.e("Urls", "content id " + allContentId.size());
@@ -148,13 +205,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void ongkoImage(int start) {
+        cAllUrls.clear();
         conten = database.getContent(2);
 
-        int max = start + 6;
+        int max = start + 3;
         if (conten.size() < max) {
             max = conten.size();
         }
-
+        int maxContent = conten.get(max - 1);
+        Utils.savePref(MainActivity.this, "2", maxContent + "");
+        Global.startDownOngk = max;
         for (int i = start; i < max; i++) {
             cUrls = database.getContentUrl(2, conten.get(i));
             cAllUrls.addAll(cUrls);
@@ -180,6 +240,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 uniquesUrls.add(allWUrls.get(i));
             }
         }
+        Global.URLS.addAll(uniquesUrls);
         Log.e("Urls", "cont unique size " + uniquesUrls.size());
         Log.e("Urls", "cont all size " + cAllUrls.size());
         Log.e("Urls", "cont size " + cUrls.size());
@@ -189,13 +250,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void englishImage(int start) {
+        cAllUrls.clear();
         conten = database.getContent(3);
 
-        int max = start + 6;
+        int max = start + 3;
         if (conten.size() < max) {
             max = conten.size();
         }
-
+        int maxContent = conten.get(max - 1);
+        Utils.savePref(MainActivity.this, "3", maxContent + "");
+        Global.startDownEng = max;
         for (int i = start; i < max; i++) {
             cUrls = database.getContentUrl(3, conten.get(i));
             cAllUrls.addAll(cUrls);
@@ -221,6 +285,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 uniquesUrls.add(allWUrls.get(i));
             }
         }
+        Global.URLS.addAll(uniquesUrls);
         Log.e("Urls", "cont unique size " + uniquesUrls.size());
         Log.e("Urls", "cont all size " + cAllUrls.size());
         Log.e("Urls", "cont size " + cUrls.size());
@@ -230,13 +295,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void mathImage(int start) {
+        cAllUrls.clear();
         conten = database.getContent(4);
 
-        int max = start + 6;
+        int max = start + 3;
         if (conten.size() < max) {
             max = conten.size();
         }
-
+        int maxContent = conten.get(max - 1);
+        Utils.savePref(MainActivity.this, "4", maxContent + "");
+        Global.startDownMath = max;
         for (int i = start; i < max; i++) {
             cUrls = database.getContentUrl(4, conten.get(i));
             cAllUrls.addAll(cUrls);
@@ -262,7 +330,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 uniquesUrls.add(allWUrls.get(i));
             }
         }
-        imageDownload();
+        Global.URLS.addAll(uniquesUrls);
+//        imageDownload();
         Log.e("Urls", "cont unique size " + uniquesUrls.size());
         Log.e("Urls", "cont all size " + cAllUrls.size());
         Log.e("Urls", "cont size " + cUrls.size());
@@ -272,6 +341,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
+
+        Global.URLS = new ArrayList<>();
         handler = new Handler();
         mainActivity = this;
         Global.mDownloads = new ArrayList<MDownload>();
@@ -785,6 +856,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         ongkoImage(0);
                         englishImage(0);
                         mathImage(0);
+                        imageDownload();
                         int c = 0;
                         int d = 0;
 //                        getDownload(1, 0);

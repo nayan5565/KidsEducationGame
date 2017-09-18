@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.nayan.gameverson2.model.MAllContent;
 //import com.example.nayan.gameverson2.model.MContents;
+import com.example.nayan.gameverson2.model.MColor;
 import com.example.nayan.gameverson2.model.MData;
 import com.example.nayan.gameverson2.model.MDownload;
 import com.example.nayan.gameverson2.model.MLevel;
@@ -32,6 +33,7 @@ public class DatabaseHelper {
     private static final String DATABASE_LOCK_TABLE = "lock_tb";
     private static final String DATABASE_SUB_LEVEL_TABLE = "sub";
     private static final String DATABASE_ALL_WORDS_TABLE = "all_words_tb";
+    private static final String DATABASE_COLOR_TABLE = "color_tb";
     private static final String KEY_WORDS_ID = "words_id";
     private static final String KEY_WORDS_CONTENTS_ID = "words_contents_id";
     private static final String KEY_WORDS_LETTER = "words_letter";
@@ -45,6 +47,7 @@ public class DatabaseHelper {
     private static final String KEY_CONTENT = "content";
     private static final String KEY_POPUP = "pop_up";
     private static final String KEY_PRESENT_POINT = "present_point";
+    private static final String KEY_COLOR = "color";
     private static final String KEY_UPDATE_DATE = "update_date";
     private static final String KEY_TOTAL_S_LEVEL = "total_slevel";
     private static final String KEY_DIFFICULTY = "difficulty";
@@ -112,6 +115,12 @@ public class DatabaseHelper {
             + KEY_HOW_TO + " text, "
             + KEY_COINS_PRICE + " text, "
             + KEY_NO_OF_COINS + " text)";
+    private static final String DATABASE_CREATE_COLOR_TABLE = "create table if not exists "
+            + DATABASE_COLOR_TABLE + "("
+            + KEY_WORDS_ID + " integer primary key autoincrement, "
+            + KEY_LEVEL_ID + " integer , "
+            + KEY_COLOR + " integer , "
+            + KEY_SUB_LEVEL_ID + " integer)";
     private static final String DATABASE_CREATE_ALL_WORDS_TABLE = "create table if not exists "
             + DATABASE_ALL_WORDS_TABLE + "("
             + KEY_WORDS_ID + " integer primary key, "
@@ -183,6 +192,7 @@ public class DatabaseHelper {
         db.execSQL(DATABASE_CREATE_SUB_LEVEL_TABLE);
         db.execSQL(DATABASE_CREATE_LOCK_TABLE);
         db.execSQL(DATABASE_CREATE_ALL_WORDS_TABLE);
+        db.execSQL(DATABASE_CREATE_COLOR_TABLE);
         db.execSQL(DATABASE_CREATE_DOWNLOAD_TABLE);
         db.execSQL(CREATE_IS_SAVE_POINT_TABLE);
 
@@ -689,7 +699,7 @@ public class DatabaseHelper {
                 Log.e("allWords", " update : " + update);
             } else {
                 long v = db.insert(DATABASE_ALL_WORDS_TABLE, null, values);
-                Log.e("JEWEL", " insert : " + v);
+                Log.e("allWords", " insert : " + v);
 
             }
 
@@ -699,6 +709,59 @@ public class DatabaseHelper {
         }
         if (cursor != null)
             cursor.close();
+    }
+
+    public void addcolor(MColor mColor) {
+        Cursor cursor = null;
+        try {
+            ContentValues values = new ContentValues();
+            values.put(KEY_LEVEL_ID, mColor.getLevelId());
+            values.put(KEY_SUB_LEVEL_ID, mColor.getSubLevelId());
+            values.put(KEY_COLOR, mColor.getColor());
+
+            String sql = "select * from " + DATABASE_COLOR_TABLE + " where " + KEY_LEVEL_ID + "='" + mColor.getLevelId()
+                    + "' AND " + KEY_SUB_LEVEL_ID + "='" + mColor.getSubLevelId() + "'";
+            cursor = db.rawQuery(sql, null);
+            if (cursor != null && cursor.getCount() > 0) {
+                int update = db.update(DATABASE_COLOR_TABLE, values, KEY_LEVEL_ID + "=? AND " + KEY_SUB_LEVEL_ID + "=?", new String[]{mColor.getLevelId() + "", mColor.getSubLevelId() + ""});
+                Log.e("DB", "color:" + update);
+            } else {
+                long v = db.insert(DATABASE_COLOR_TABLE, null, values);
+                Log.e("DB", "color:" + v);
+
+            }
+
+
+        } catch (Exception e) {
+            Log.e("ERR", "color:" + e.toString());
+        }
+
+        if (cursor != null)
+            cursor.close();
+    }
+    public MColor getColor(int levelId, int subLevelId) {
+        ArrayList<MColor> mColors = new ArrayList<>();
+        MColor mColor = new MColor();
+        String sql = "select * from " + DATABASE_COLOR_TABLE + " where " + KEY_LEVEL_ID + "='" + levelId + "' "
+                + " AND " + KEY_SUB_LEVEL_ID + "='" + subLevelId + "'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                mColor = new MColor();
+                mColor.setId(cursor.getInt(cursor.getColumnIndex(KEY_WORDS_ID)));
+                mColor.setLevelId(cursor.getInt(cursor.getColumnIndex(KEY_LEVEL_ID)));
+                mColor.setSubLevelId(cursor.getInt(cursor.getColumnIndex(KEY_SUB_LEVEL_ID)));
+                mColor.setColor(cursor.getInt(cursor.getColumnIndex(KEY_COLOR)));
+                Log.e("totalPoint", "is :" + mColor.getColor());
+                Log.e("unlock", "lock size" + mColors.size());
+                mColors.add(mColor);
+
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+
+        return mColor;
     }
 
     public ArrayList<MWords> getAllWordsData(int id) {
@@ -782,7 +845,7 @@ public class DatabaseHelper {
         return conten;
     }
 
-    public ArrayList<Integer> getContentsId(int levelId,int content) {
+    public ArrayList<Integer> getContentsId(int levelId, int content) {
         ArrayList<Integer> contenId = new ArrayList<>();
 
         String sql = "select * from " + DATABASE_ALL_CONTENTS_TABLE + " where " + KEY_LEVEL + "='" + levelId + "'" + " AND " + KEY_CONTENT + "='" + content + "'";

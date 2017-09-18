@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -37,6 +38,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.example.nayan.gameverson2.activity.MainActivity.bothImg;
 import static com.example.nayan.gameverson2.activity.SubLevelActivity.mSubLevels;
 
 /**
@@ -791,6 +793,18 @@ public class GameLogic {
                     Global.CONTENT = mSubLevels.get(Global.SUB_INDEX_POSITION).getContent();
                     GameActivity.getInstance().getIsSaveDataFromDb(Global.levelId, Global.subLevelId);
                     GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION, Global.CONTENT);
+                    String start = DialogSoundOnOff.getPREF(context, Global.levelId + "");
+                    String maxContent = Utils.getPREF(context, Global.levelId + "");
+                    int s = Integer.valueOf(start);
+                    int m = Integer.valueOf(maxContent);
+                    Log.e("content", " start " + s);
+                    Log.e("content", " max " + m);
+                    Log.e("content", " present " + Global.CONTENT);
+                    if (Global.CONTENT > m) {
+                        dialog.dismiss();
+                        dialogShow(s, 0, Global.levelId);
+                        return;
+                    }
                 }
                 dialog.dismiss();
             }
@@ -835,6 +849,53 @@ public class GameLogic {
 //        txtScore.setText("Score :  " + presentPoint + "");
 
 //        else txtPoint.setText(Utils.getIntToStar(0));
+        dialog.show();
+    }
+
+    private void dialogShow(final int start, final int pos, final int level) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dia_download);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button btnOK = (Button) dialog.findViewById(R.id.btnYap);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btnNop);
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Global.levelId == 1) {
+                    MainActivity.getInstance().banglaImage(start);
+                    Log.e("content", " start bangla ");
+
+                } else if (Global.levelId == 2) {
+                    MainActivity.getInstance().ongkoImage(start);
+                    Log.e("content", " start ongko ");
+                } else if (Global.levelId == 3) {
+                    MainActivity.getInstance().englishImage(start);
+                    Log.e("content", " start english ");
+                } else if (Global.levelId == 4) {
+                    MainActivity.getInstance().mathImage(start);
+                    Log.e("content", " start math ");
+                }
+//                MainActivity.getInstance().allCatagoryImage(start, level, context);
+                FilesDownload filesDownload = FilesDownload.getInstance(context, bothImg);
+                for (int i = 0; i < Global.URLS.size(); i++) {
+                    filesDownload.addUrl(Global.IMAGE_URL + Global.URLS.get(i));
+
+                }
+                FilesDownload.getInstance(context, "").start();
+                dialog.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 

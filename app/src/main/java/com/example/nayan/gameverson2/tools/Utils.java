@@ -7,6 +7,7 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -49,6 +50,8 @@ public class Utils {
     public static int bestPoint, presentPoint;
     public static int widthSize, heightSize;
     static MediaPlayer mediaPlayer;
+    public static final String MYPREF = "mPre";
+    public static SharedPreferences preferences;
 
 
     public static String convertToBangla(String number) {
@@ -386,6 +389,22 @@ public class Utils {
         for (TextView textView : textViews) {
             textView.setTypeface(typeface);
         }
+    }
+
+    public static String getPREF(Context context, String key) {
+        preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
+        return preferences.getString(key, "null");
+    }
+    public static int getIntPREF(Context context, String key) {
+        preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
+        return preferences.getInt(key, 0);
+    }
+
+    public static void savePref(Context context, String key, String value) {
+        preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(key, value);
+        editor.apply();
     }
 
 
