@@ -32,6 +32,7 @@ public class Global {
     public static String internetAlert = "No Internet Connection. Please at first need internet connected then exit from app and again open it.";
     public static String parentLevelName;
     public static int SUB_INDEX_POSITION;
+    public static int pos;
     public static String ALTER_URL = "";
     public static int subLevelId;
     public static int LEVEL_DOWNLOAD = 5;

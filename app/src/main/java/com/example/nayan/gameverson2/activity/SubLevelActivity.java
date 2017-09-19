@@ -228,7 +228,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         mSubLevels = database.getSubLevelData(value);
         Log.e("level ", " level id " + value);
 
-        Log.e("level", " is level number " + mSubLevels);
+        Log.e("level", " is level number " + mSubLevels.size());
 
         if (mSubLevels.size() < 1) {
             Utils.toastMassage(this, "Empty Data");

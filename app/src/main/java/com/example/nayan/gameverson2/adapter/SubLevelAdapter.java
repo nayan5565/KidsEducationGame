@@ -218,21 +218,21 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
             @Override
             public void onClick(View view) {
 
-                mSubLevel = mSubLevels.get(pos);
-                if (mSubLevel.getUnlockNextLevel() == 1) {
-
-                    Intent intent = new Intent(context, GameActivity.class);
-                    intent.putExtra("subLevelName", mSubLevel.getName());
-                    intent.putExtra("index", pos);
-                    intent.putExtra("Sid", mSubLevel.getLid());
-                    intent.putExtra("content", mSubLevel.getContent());
-//                        intent.putExtra("pop", mSubLevel.getIsPopUp());
-                    intent.putExtra("content", mSubLevel.getContent());
-                    intent.putExtra("SLogic", mSubLevel.getLogic());
-                    intent.putExtra("parentLevelName", mSubLevel.getParentName());
-                    context.startActivity(intent);
-
-                }
+//                mSubLevel = mSubLevels.get(pos);
+//                if (mSubLevel.getUnlockNextLevel() == 1) {
+//
+//                    Intent intent = new Intent(context, GameActivity.class);
+//                    intent.putExtra("subLevelName", mSubLevel.getName());
+//                    intent.putExtra("index", pos);
+//                    intent.putExtra("Sid", mSubLevel.getLid());
+//                    intent.putExtra("content", mSubLevel.getContent());
+////                        intent.putExtra("pop", mSubLevel.getIsPopUp());
+//                    intent.putExtra("content", mSubLevel.getContent());
+//                    intent.putExtra("SLogic", mSubLevel.getLogic());
+//                    intent.putExtra("parentLevelName", mSubLevel.getParentName());
+//                    context.startActivity(intent);
+//
+//                }
                 dialog.dismiss();
             }
         });

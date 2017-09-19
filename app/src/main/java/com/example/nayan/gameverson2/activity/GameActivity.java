@@ -124,6 +124,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         Global.parentLevelName = getIntent().getStringExtra("parentLevelName");
         parentName = Global.parentLevelName;
         Global.SUB_INDEX_POSITION = getIntent().getIntExtra("index", 0);
+        Global.pos = getIntent().getIntExtra("index", 0);
         Global.subLevelId = getIntent().getIntExtra("Sid", 0);
         Global.present_content = getIntent().getIntExtra("content", 0);
         content = getIntent().getIntExtra("content", 0);

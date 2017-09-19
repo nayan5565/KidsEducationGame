@@ -372,6 +372,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     savePoint(textArrayList.size() - 1);
                     GameLogic.getInstance(context).isSavePoint();
                     dialogShowForLevelClear(textArrayList.size());
+                    played();
                     if (Global.levelId == 1) {
                         GameActivity.getInstance().txtTotalPoint.setText(Utils.convertNum(Global.totalPoint + ""));
                     }
@@ -973,6 +974,15 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         });
 
         dialog.show();
+    }
+
+    public void played() {
+        MLock mLock = new MLock();
+        mLock = db.getLocalData(Global.levelId, Global.subLevelId);
+        mLock.setLevel_id(Global.levelId);
+        mLock.setSub_level_id(Global.subLevelId);
+        mLock.setColor(1);
+        db.addLockData(mLock);
     }
 
     public void savePoint(int listSize) {
