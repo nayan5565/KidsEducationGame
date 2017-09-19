@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.nayan.gameverson2.R;
 import com.example.nayan.gameverson2.activity.GameActivity;
 import com.example.nayan.gameverson2.activity.MainActivity;
+import com.example.nayan.gameverson2.activity.SubLevelActivity;
 import com.example.nayan.gameverson2.model.MColor;
 import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
@@ -30,6 +31,7 @@ import com.example.nayan.gameverson2.tools.Utils;
 import java.util.ArrayList;
 
 import static com.example.nayan.gameverson2.activity.MainActivity.bothImg;
+import static com.example.nayan.gameverson2.activity.SubLevelActivity.mSubLevels;
 
 /**
  * Created by NAYAN on 11/24/2016.
@@ -87,10 +89,12 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
         if (mSubLevel.getUnlockNextLevel() == 1) {
             holder.imgLock.setVisibility(View.GONE);
             holder.imgSub.setImageResource(R.drawable.sublevel_item_view);
-        } else if (mSubLevel.getColor() == 1 && mSubLevel.getUnlockNextLevel() == 0) {
+        } else if (mSubLevel.getIsDownload() == 1) {
             holder.imgLock.setVisibility(View.VISIBLE);
             holder.imgSub.setImageResource(R.drawable.sublevel_item_view);
-        } else if (mSubLevel.getUnlockNextLevel() == 0) {
+        } else if (mSubLevel.getColor() == 1) {
+            holder.txtSubLevel.setTextColor(Color.RED);
+        } else {
 //            if (mColor.getColor() == 1) {
 //                holder.imgLock.setVisibility(View.VISIBLE);
 //                holder.imgSub.setImageResource(R.drawable.sublevel_item_view);
@@ -147,10 +151,7 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                         int m = Integer.valueOf(maxContent);
                         Log.e("content", " start " + s);
                         Log.e("content", " max " + m);
-                        if (mSubLevel.getContent() > m) {
-                            dialogShow(s, getAdapterPosition(), Global.levelId);
-                            return;
-                        }
+
 
                         Intent intent = new Intent(context, GameActivity.class);
                         intent.putExtra("subLevelName", mSubLevel.getName());
@@ -161,7 +162,16 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                         intent.putExtra("content", mSubLevel.getContent());
                         intent.putExtra("SLogic", mSubLevel.getLogic());
                         intent.putExtra("parentLevelName", mSubLevel.getParentName());
+                        if (mSubLevel.getContent() > m) {
+//                            if (s == 0) {
+//                                s = s + 6;
+//                            }
+                            dialogShow(s, getAdapterPosition(), Global.levelId);
+                            notifyDataSetChanged();
+                            return;
+                        }
                         context.startActivity(intent);
+
                     }
 
                 }
@@ -197,12 +207,9 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                     Log.e("content", " start math ");
                 }
 //                MainActivity.getInstance().allCatagoryImage(start, level, context);
-                FilesDownload filesDownload = FilesDownload.getInstance(context, bothImg);
-                for (int i = 0; i < Global.URLS.size(); i++) {
-                    filesDownload.addUrl(Global.IMAGE_URL + Global.URLS.get(i));
-
-                }
-                FilesDownload.getInstance(context, "").start();
+                SubLevelActivity.getInstane().download();
+//                SubLevelActivity.getInstane().color();
+                notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
@@ -210,15 +217,22 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, GameActivity.class);
-                intent.putExtra("subLevelName", mSubLevel.getName());
-                intent.putExtra("index", pos);
-                intent.putExtra("Sid", mSubLevel.getLid());
+
+                mSubLevel = mSubLevels.get(pos);
+                if (mSubLevel.getUnlockNextLevel() == 1) {
+
+                    Intent intent = new Intent(context, GameActivity.class);
+                    intent.putExtra("subLevelName", mSubLevel.getName());
+                    intent.putExtra("index", pos);
+                    intent.putExtra("Sid", mSubLevel.getLid());
+                    intent.putExtra("content", mSubLevel.getContent());
 //                        intent.putExtra("pop", mSubLevel.getIsPopUp());
-                intent.putExtra("content", mSubLevel.getContent());
-                intent.putExtra("SLogic", mSubLevel.getLogic());
-                intent.putExtra("parentLevelName", mSubLevel.getParentName());
-                context.startActivity(intent);
+                    intent.putExtra("content", mSubLevel.getContent());
+                    intent.putExtra("SLogic", mSubLevel.getLogic());
+                    intent.putExtra("parentLevelName", mSubLevel.getParentName());
+                    context.startActivity(intent);
+
+                }
                 dialog.dismiss();
             }
         });

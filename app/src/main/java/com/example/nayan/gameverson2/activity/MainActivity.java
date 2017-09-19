@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         int maxContent = conten.get(max - 1);
         Utils.savePref(MainActivity.this, "1", maxContent + "");
+        DialogSoundOnOff.savePref(MainActivity.this, "1", max + "");
         Global.startDownBan = max;
 
         for (int i = start; i < max; i++) {
@@ -215,6 +216,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         int maxContent = conten.get(max - 1);
         Utils.savePref(MainActivity.this, "2", maxContent + "");
+        DialogSoundOnOff.savePref(MainActivity.this, "2", max + "");
+
         Global.startDownOngk = max;
         for (int i = start; i < max; i++) {
             cUrls = database.getContentUrl(2, conten.get(i));
@@ -260,6 +263,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         int maxContent = conten.get(max - 1);
         Utils.savePref(MainActivity.this, "3", maxContent + "");
+        DialogSoundOnOff.savePref(MainActivity.this, "3", max + "");
         Global.startDownEng = max;
         for (int i = start; i < max; i++) {
             cUrls = database.getContentUrl(3, conten.get(i));
@@ -305,6 +309,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         int maxContent = conten.get(max - 1);
         Utils.savePref(MainActivity.this, "4", maxContent + "");
+        DialogSoundOnOff.savePref(MainActivity.this, "4", max + "");
         Global.startDownMath = max;
         for (int i = start; i < max; i++) {
             cUrls = database.getContentUrl(4, conten.get(i));
@@ -341,8 +346,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("Urls", "content " + conten.size());
     }
 
+    public void imageDownload() {
+        FilesDownload filesDownload = FilesDownload.getInstance(this, bothImg);
+        for (int i = 0; i < uniquesUrls.size(); i++) {
+            filesDownload.addUrl(Global.IMAGE_URL + uniquesUrls.get(i));
+
+        }
+        FilesDownload.getInstance(MainActivity.this, "").start();
+    }
+
     private void init() {
-        mColors=new ArrayList<>();
+        mColors = new ArrayList<>();
         Global.URLS = new ArrayList<>();
         handler = new Handler();
         mainActivity = this;
@@ -981,14 +995,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void imageDownload() {
-        FilesDownload filesDownload = FilesDownload.getInstance(this, bothImg);
-        for (int i = 0; i < uniquesUrls.size(); i++) {
-            filesDownload.addUrl(Global.IMAGE_URL + uniquesUrls.get(i));
 
-        }
-        FilesDownload.getInstance(MainActivity.this, "").start();
-    }
 
 
     public void allImageDownload() {

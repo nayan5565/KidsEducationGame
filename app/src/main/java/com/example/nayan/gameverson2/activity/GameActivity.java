@@ -26,6 +26,7 @@ import com.example.nayan.gameverson2.model.MLock;
 import com.example.nayan.gameverson2.model.MSubLevel;
 import com.example.nayan.gameverson2.model.MWords;
 import com.example.nayan.gameverson2.tools.DatabaseHelper;
+import com.example.nayan.gameverson2.tools.FilesDownload;
 import com.example.nayan.gameverson2.tools.Global;
 import com.example.nayan.gameverson2.tools.MyGoogleAnalytics;
 import com.example.nayan.gameverson2.tools.SpacesItemDecoration;
@@ -33,6 +34,8 @@ import com.example.nayan.gameverson2.tools.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static com.example.nayan.gameverson2.activity.MainActivity.bothImg;
 
 /**
  * Created by NAYAN on 11/24/2016.
@@ -141,7 +144,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+    public void download() {
+        FilesDownload filesDownload = FilesDownload.getInstance(GameActivity.this, bothImg);
+        for (int i = 0; i < MainActivity.getInstance().uniquesUrls.size(); i++) {
+            filesDownload.addUrl(Global.IMAGE_URL + MainActivity.getInstance().uniquesUrls.get(i));
 
+        }
+        FilesDownload.getInstance(GameActivity.this, "").start();
+    }
     public void getIsSaveDataFromDb(int level, int subLevel) {
         mData = database.getIsSavePoint(level, subLevel);
         Global.isSavePoint = mData.getIsSavePoint();

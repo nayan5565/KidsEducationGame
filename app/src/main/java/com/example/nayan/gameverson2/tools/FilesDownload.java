@@ -125,10 +125,10 @@ public class FilesDownload {
             super.onPostExecute(result);
             Log.e(dir, "stop");
 
-            DialogSoundOnOff.savePref(context, "1", Global.startDownBan + "");
-            DialogSoundOnOff.savePref(context, "2", Global.startDownOngk + "");
-            DialogSoundOnOff.savePref(context, "3", Global.startDownEng + "");
-            DialogSoundOnOff.savePref(context, "4", Global.startDownMath + "");
+//            DialogSoundOnOff.savePref(context, "1", Global.startDownBan + "");
+//            DialogSoundOnOff.savePref(context, "2", Global.startDownOngk + "");
+//            DialogSoundOnOff.savePref(context, "3", Global.startDownEng + "");
+//            DialogSoundOnOff.savePref(context, "4", Global.startDownMath + "");
             dialog.dismiss();
 
             if (result) {

@@ -18,6 +18,15 @@ public class MSubLevel {
     private int unlockNextLevel;
     private int content;
     private int color;
+    private int IsDownload;
+
+    public int getIsDownload() {
+        return IsDownload;
+    }
+
+    public void setIsDownload(int isDownload) {
+        IsDownload = isDownload;
+    }
 
     public int getColor() {
         return color;

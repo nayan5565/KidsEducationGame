@@ -864,6 +864,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     return;
 
                 } else {
+                    mSubLevels.get(Global.SUB_INDEX_POSITION).setColor(1);
                     Global.SUB_INDEX_POSITION = Global.SUB_INDEX_POSITION + 1;
 
 //                    Global.CONTENT=Global.CONTENT;
@@ -952,12 +953,13 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                     Log.e("content", " start math ");
                 }
 //                MainActivity.getInstance().allCatagoryImage(start, level, context);
-                FilesDownload filesDownload = FilesDownload.getInstance(context, bothImg);
-                for (int i = 0; i < Global.URLS.size(); i++) {
-                    filesDownload.addUrl(Global.IMAGE_URL + Global.URLS.get(i));
-
-                }
-                FilesDownload.getInstance(context, "").start();
+//                FilesDownload filesDownload = FilesDownload.getInstance(context, bothImg);
+//                for (int i = 0; i < Global.URLS.size(); i++) {
+//                    filesDownload.addUrl(Global.IMAGE_URL + Global.URLS.get(i));
+//
+//                }
+//                FilesDownload.getInstance(context, "").start();
+                GameActivity.getInstance().download();
                 dialog.dismiss();
             }
         });

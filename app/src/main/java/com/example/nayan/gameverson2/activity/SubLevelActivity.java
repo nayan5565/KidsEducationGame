@@ -34,6 +34,8 @@ import com.example.nayan.gameverson2.tools.Utils;
 
 import java.util.ArrayList;
 
+import static com.example.nayan.gameverson2.activity.MainActivity.bothImg;
+
 /**
  * Created by NAYAN on 11/24/2016.
  */
@@ -59,7 +61,11 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
     private ImageView imageView, imgLevelName, imageHelp;
     private MColor mColor;
     private ArrayList<MColor> mColors;
+    private static SubLevelActivity subLevelActivity;
 
+    public static SubLevelActivity getInstane() {
+        return subLevelActivity;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +146,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void init() {
+        subLevelActivity = this;
         mColors = new ArrayList<>();
         mLevels = new ArrayList<>();
         mAllContent = new MAllContent();
@@ -169,33 +176,48 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    private void color() {
-        String start = DialogSoundOnOff.getPREF(SubLevelActivity.this, Global.levelId + "");
-        int s = Integer.valueOf(start);
-        mColor = database.getColor(Global.levelId, Global.subLevelId);
-        for (int i = 0; i < s; i++) {
-            mColor = new MColor();
-            mColor.setLevelId(Global.levelId);
-            mColor.setSubLevelId(Global.subLevelId);
-            mColor.setColor(1);
-            mColors.add(mColor);
-            database.addcolor(mColor);
+    public void color() {
+//        String start = DialogSoundOnOff.getPREF(SubLevelActivity.this, Global.levelId + "");
+//        int s = Integer.valueOf(start);
+//        mColor = database.getColor(Global.levelId, Global.subLevelId);
+//        for (int i = 0; i < s; i++) {
+//            mColor = new MColor();
+//            mColor.setLevelId(Global.levelId);
+//            mColor.setSubLevelId(Global.subLevelId);
+//            mColor.setColor(1);
+//            mColors.add(mColor);
+//            database.addcolor(mColor);
+//        }
+//        DatabaseHelper db = new DatabaseHelper(SubLevelActivity.this);
+//        MLock lock;
+//        for (int i = 0; i < s; i++) {
+//            lock = new MLock();
+//            lock = db.getLocalData(Global.levelId, mSubLevels.get(i).getLid());
+//            lock.setLevel_id(1);
+//            lock.setSub_level_id(mSubLevels.get(i).getLid());
+//            Log.e("LOGIC", "sid:" + lock.getSub_level_id());
+//            lock.setColor(1);
+//            db.addLockData(lock);
+//            mSubLevels.get(i).setColor(1);
+//        }
+
+        String maxContent = Utils.getPREF(SubLevelActivity.this, Global.levelId + "");
+        int m = Integer.valueOf(maxContent);
+        for (int i = 0; i < mSubLevels.size(); i++) {
+            if (mSubLevels.get(i).getContent() <= m) {
+                mSubLevels.get(i).setIsDownload(1);
+            }
         }
-        DatabaseHelper db = new DatabaseHelper(SubLevelActivity.this);
-        MLock lock;
-        for (int i = 0; i < s; i++) {
-            lock = new MLock();
-            lock = db.getLocalData(Global.levelId, mSubLevels.get(i).getLid());
-            lock.setLevel_id(1);
-            lock.setSub_level_id(mSubLevels.get(i).getLid());
-            Log.e("LOGIC", "sid:" + lock.getSub_level_id());
-            lock.setColor(1);
-            db.addLockData(lock);
-            mSubLevels.get(i).setColor(1);
+        subLevelAdapter.notifyDataSetChanged();
+    }
+
+    public void download() {
+        FilesDownload filesDownload = FilesDownload.getInstance(SubLevelActivity.this, bothImg);
+        for (int i = 0; i < MainActivity.getInstance().uniquesUrls.size(); i++) {
+            filesDownload.addUrl(Global.IMAGE_URL + MainActivity.getInstance().uniquesUrls.get(i));
+
         }
-
-
-
+        FilesDownload.getInstance(SubLevelActivity.this, "").start();
     }
 
     private void getLocalData() {
@@ -217,11 +239,12 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
         Log.e("getDb", "sublevel : " + mSubLevels.size());
 //all sub level unlock for sub_level_activity
         mSubLevels.get(0).setUnlockNextLevel(1);
-
+        color();
         subLevelAdapter.setData(mSubLevels);
         totalPoint = database.getLockTotalPointData(Global.levelId);
 
     }
+
 
     private void prepareDisplay() {
         Utils.setFont(this, "carterone", txtAllTotal_ponts, txtLevelName, txtLevelSelect);

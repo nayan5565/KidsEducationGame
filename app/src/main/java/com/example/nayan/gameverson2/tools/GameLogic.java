@@ -96,6 +96,7 @@ public class GameLogic {
         lock.setPopup(Global.popUp);
         lock.setIsSavePoint(Global.isSavePoint);
         lock.setUnlockNextLevel(1);
+        lock.setColor(1);
 
         DatabaseHelper db = new DatabaseHelper(context);
         db.addLockData(lock);
@@ -784,6 +785,7 @@ public class GameLogic {
                     return;
 
                 } else {
+                    mSubLevels.get(Global.SUB_INDEX_POSITION).setColor(1);
                     Global.SUB_INDEX_POSITION = Global.SUB_INDEX_POSITION + 1;
 
 //                    Global.CONTENT=Global.CONTENT;
@@ -878,12 +880,13 @@ public class GameLogic {
                     Log.e("content", " start math ");
                 }
 //                MainActivity.getInstance().allCatagoryImage(start, level, context);
-                FilesDownload filesDownload = FilesDownload.getInstance(context, bothImg);
-                for (int i = 0; i < Global.URLS.size(); i++) {
-                    filesDownload.addUrl(Global.IMAGE_URL + Global.URLS.get(i));
-
-                }
-                FilesDownload.getInstance(context, "").start();
+//                FilesDownload filesDownload = FilesDownload.getInstance(context, bothImg);
+//                for (int i = 0; i < Global.URLS.size(); i++) {
+//                    filesDownload.addUrl(Global.IMAGE_URL + Global.URLS.get(i));
+//
+//                }
+//                FilesDownload.getInstance(context, "").start();
+                GameActivity.getInstance().download();
                 dialog.dismiss();
             }
         });
