@@ -787,19 +787,7 @@ public class GameLogic {
                     return;
 
                 } else {
-                    String start = DialogSoundOnOff.getPREF(context, Global.levelId + "");
-                    String maxContent = Utils.getPREF(context, Global.levelId + "");
-                    int s = Integer.valueOf(start);
-                    int m = Integer.valueOf(maxContent);
-                    Log.e("content", " start " + s);
-                    Log.e("content", " max " + m);
-                    Log.e("content", " present " + Global.CONTENT);
-                    Global.pos = s - 1;
-                    if (mSubLevels.get(Global.pos).getContent() == m) {
-                        dialog.dismiss();
-                        dialogShow(s, 0, Global.levelId);
-                        return;
-                    }
+
                     mSubLevels.get(Global.SUB_INDEX_POSITION).setColor(1);
                     Global.SUB_INDEX_POSITION = Global.SUB_INDEX_POSITION + 1;
 
@@ -810,7 +798,19 @@ public class GameLogic {
                     Global.CONTENT = mSubLevels.get(Global.SUB_INDEX_POSITION).getContent();
                     GameActivity.getInstance().getIsSaveDataFromDb(Global.levelId, Global.subLevelId);
                     GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION, Global.CONTENT);
-
+                    String start = DialogSoundOnOff.getPREF(context, Global.levelId + "");
+                    String maxContent = Utils.getPREF(context, Global.levelId + "");
+                    int s = Integer.valueOf(start);
+                    int m = Integer.valueOf(maxContent);
+                    Log.e("content", " start " + s);
+                    Log.e("content", " max " + m);
+                    Log.e("content", " present " + Global.CONTENT);
+//                    Global.pos = s + 1;
+                    if (mSubLevels.get(Global.SUB_INDEX_POSITION).getContent() > m) {
+                        dialog.dismiss();
+                        dialogShow(s, 0, Global.levelId);
+                        return;
+                    }
                 }
                 dialog.dismiss();
             }

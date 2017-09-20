@@ -94,7 +94,11 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
             holder.imgSub.setImageResource(R.drawable.sublevel_item_view);
         } else if (mSubLevel.getColor() == 1) {
             holder.txtSubLevel.setTextColor(Color.RED);
-        } else {
+        }else if (mSubLevel.getIsDownload()==0){
+            holder.imgLock.setVisibility(View.VISIBLE);
+            holder.imgSub.setImageResource(R.drawable.inactive_bg);
+        }
+        else {
 //            if (mColor.getColor() == 1) {
 //                holder.imgLock.setVisibility(View.VISIBLE);
 //                holder.imgSub.setImageResource(R.drawable.sublevel_item_view);
@@ -145,9 +149,11 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                     Utils.bestPoint = mSubLevel.getBestPoint();
                     if (mSubLevel.getUnlockNextLevel() == 1) {
 
+
+
                         String start = DialogSoundOnOff.getPREF(context, Global.levelId + "");
-                        String maxContent = Utils.getPREF(context, Global.levelId + "");
                         int s = Integer.valueOf(start);
+                        String maxContent = Utils.getPREF(context, Global.levelId + "");
                         int m = Integer.valueOf(maxContent);
                         Log.e("content", " start " + s);
                         Log.e("content", " max " + m);
@@ -208,7 +214,7 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
                 }
 //                MainActivity.getInstance().allCatagoryImage(start, level, context);
                 SubLevelActivity.getInstane().download();
-//                SubLevelActivity.getInstane().color();
+                SubLevelActivity.getInstane().color();
                 notifyDataSetChanged();
                 dialog.dismiss();
             }

@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cAllUrls.clear();
         conten = database.getContent(1);
 
-        int max = start + 3;
+        int max = start + 6;
         if (max > conten.size()) {
             max = conten.size();
         }
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cAllUrls.clear();
         conten = database.getContent(2);
 
-        int max = start + 3;
+        int max = start + 6;
         if (conten.size() < max) {
             max = conten.size();
         }
@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cAllUrls.clear();
         conten = database.getContent(3);
 
-        int max = start + 3;
+        int max = start + 6;
         if (conten.size() < max) {
             max = conten.size();
         }
@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cAllUrls.clear();
         conten = database.getContent(4);
 
-        int max = start + 3;
+        int max = start + 6;
         if (conten.size() < max) {
             max = conten.size();
         }
@@ -866,12 +866,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         saveBanglaMathContentsOfAllLevelToDb();
                         saveBanglaMathWordsToDb();
 //                        saveDownloadToDb();
+//                        String start = DialogSoundOnOff.getPREF(MainActivity.this, 1 + "");
+//                        int s = Integer.valueOf(start);
+//                        if (s==0){
+                            banglaImage(0);
+                            ongkoImage(0);
+                            englishImage(0);
+                            mathImage(0);
+                            imageDownload();
+//                        }
 
-                        banglaImage(0);
-                        ongkoImage(0);
-                        englishImage(0);
-                        mathImage(0);
-                        imageDownload();
                         int c = 0;
                         int d = 0;
 //                        getDownload(1, 0);
@@ -994,8 +998,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             database.addAllWordsData(mWords);
         }
     }
-
-
 
 
     public void allImageDownload() {
