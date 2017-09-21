@@ -201,7 +201,7 @@ public class SubLevelActivity extends AppCompatActivity implements View.OnClickL
 //            mSubLevels.get(i).setColor(1);
 //        }
 
-        String maxContent = Utils.getPREF(SubLevelActivity.this, Global.levelId + "");
+        String maxContent = Utils.getPREF( Global.levelId + "");
         int m = Integer.valueOf(maxContent);
         for (int i = 0; i < mSubLevels.size(); i++) {
             if (mSubLevels.get(i).getContent() <= m) {

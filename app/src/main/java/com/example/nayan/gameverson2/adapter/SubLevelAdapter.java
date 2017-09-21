@@ -151,9 +151,9 @@ public class SubLevelAdapter extends RecyclerView.Adapter<SubLevelAdapter.MyView
 
 
 
-                        String start = DialogSoundOnOff.getPREF(context, Global.levelId + "");
+                        String start = DialogSoundOnOff.getPREF( Global.levelId + "");
                         int s = Integer.valueOf(start);
-                        String maxContent = Utils.getPREF(context, Global.levelId + "");
+                        String maxContent = Utils.getPREF( Global.levelId + "");
                         int m = Integer.valueOf(maxContent);
                         Log.e("content", " start " + s);
                         Log.e("content", " max " + m);

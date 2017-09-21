@@ -22,19 +22,20 @@ import com.example.nayan.gameverson2.R;
 public class DialogSoundOnOff {
     public static final String MYPREF = "mpref";
     public static final String KEY_IMAGE = "image";
-    public static SharedPreferences preferences;
 
-    public static String getPREF(Context context, String key) {
-        preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
+
+    public static String getPREF(String key) {
+        SharedPreferences preferences = MyApplication.getMyInstance().getAppContext().getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
         return preferences.getString(key, "null");
     }
-    public static int getIntPREF(Context context, String key) {
-        preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
+
+    public static int getIntPREF(String key) {
+        SharedPreferences preferences = MyApplication.getMyInstance().getAppContext().getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
         return preferences.getInt(key, 0);
     }
 
-    public static void savePref(Context context, String key, String value) {
-        preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
+    public static void savePref(String key, String value) {
+        SharedPreferences preferences = MyApplication.getMyInstance().getAppContext().getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(key, value);
         editor.apply();
@@ -49,24 +50,24 @@ public class DialogSoundOnOff {
         ImageView btnOK = (ImageView) dialog.findViewById(R.id.btnOk);
         ImageView btnCancel = (ImageView) dialog.findViewById(R.id.imgCancel);
         Button btnContuct = (Button) dialog.findViewById(R.id.btnContuctUs);
-        TextView txtSound=(TextView)dialog.findViewById(R.id.txtSound);
-        TextView txtContact=(TextView)dialog.findViewById(R.id.txtContuctUs);
-        Utils.setFont(context,"carterone",txtSound,txtContact);
+        TextView txtSound = (TextView) dialog.findViewById(R.id.txtSound);
+        TextView txtContact = (TextView) dialog.findViewById(R.id.txtContuctUs);
+        Utils.setFont(context, "carterone", txtSound, txtContact);
         btnContuct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
-                    Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + Global.ADMIN));
-                    intent.putExtra(Intent.EXTRA_SUBJECT,Global.SUBJECT);
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + Global.ADMIN));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, Global.SUBJECT);
                     intent.putExtra(Intent.EXTRA_TEXT, Global.TEXT);
                     context.startActivity(intent);
-                }catch(ActivityNotFoundException e){
+                } catch (ActivityNotFoundException e) {
                     //TODO smth
                 }
             }
         });
         String image;
-        image = getPREF(context, KEY_IMAGE);
+        image = getPREF(KEY_IMAGE);
         if (image.equals(1 + "")) {
             Utils.isSoundPlay = true;
             imgSound.setImageResource(R.drawable.on);
@@ -92,11 +93,11 @@ public class DialogSoundOnOff {
                 if (Utils.isSoundPlay == false) {
                     Utils.isSoundPlay = true;
                     imgSound.setImageResource(R.drawable.on);
-                    savePref(context, KEY_IMAGE, 1 + "");
+                    savePref(KEY_IMAGE, 1 + "");
                 } else {
                     Utils.isSoundPlay = false;
                     imgSound.setImageResource(R.drawable.off);
-                    savePref(context, KEY_IMAGE, 0 + "");
+                    savePref(KEY_IMAGE, 0 + "");
                 }
             }
         });

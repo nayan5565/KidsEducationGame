@@ -69,6 +69,10 @@ public class Global {
     public static int startDownOngk;
     public static int startDownEng;
     public static int startDownMath;
+    public static int maximumContentOfBangla;
+    public static int maximumContentOfOngko;
+    public static int maximumContentOfEnglish;
+    public static int maximumContentOfMath;
     public static ArrayList<String> URLS;
     public static int popUp;
     public static String ADMIN = "dino.araf@gmail.com";

@@ -798,8 +798,8 @@ public class GameLogic {
                     Global.CONTENT = mSubLevels.get(Global.SUB_INDEX_POSITION).getContent();
                     GameActivity.getInstance().getIsSaveDataFromDb(Global.levelId, Global.subLevelId);
                     GameActivity.getInstance().refresh(Global.SUB_INDEX_POSITION, Global.CONTENT);
-                    String start = DialogSoundOnOff.getPREF(context, Global.levelId + "");
-                    String maxContent = Utils.getPREF(context, Global.levelId + "");
+                    String start = DialogSoundOnOff.getPREF( Global.levelId + "");
+                    String maxContent = Utils.getPREF(Global.levelId + "");
                     int s = Integer.valueOf(start);
                     int m = Integer.valueOf(maxContent);
                     Log.e("content", " start " + s);

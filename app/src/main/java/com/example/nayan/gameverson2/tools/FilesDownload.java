@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.example.nayan.gameverson2.R;
+import com.example.nayan.gameverson2.activity.MainActivity;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -91,7 +92,7 @@ public class FilesDownload {
 //            dialog.setMax(100);
 //            dialog.setProgress(0);
 //            if (dShow < 1) {
-                dialog = ProgressDialog.show(context, null, "Downloading...");
+            dialog = ProgressDialog.show(context, null, "Downloading...");
 
 //            }
 
@@ -124,11 +125,14 @@ public class FilesDownload {
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
             Log.e(dir, "stop");
-
-//            DialogSoundOnOff.savePref(context, "1", Global.startDownBan + "");
-//            DialogSoundOnOff.savePref(context, "2", Global.startDownOngk + "");
-//            DialogSoundOnOff.savePref(context, "3", Global.startDownEng + "");
-//            DialogSoundOnOff.savePref(context, "4", Global.startDownMath + "");
+            Utils.savePref(1 + "", Global.maximumContentOfBangla + "");
+            Utils.savePref(2 + "", Global.maximumContentOfOngko + "");
+            Utils.savePref(3 + "", Global.maximumContentOfEnglish + "");
+            Utils.savePref(4 + "", Global.maximumContentOfMath + "");
+            DialogSoundOnOff.savePref(1 + "", Global.startDownBan + "");
+            DialogSoundOnOff.savePref(2 + "", Global.startDownOngk + "");
+            DialogSoundOnOff.savePref(3 + "", Global.startDownEng + "");
+            DialogSoundOnOff.savePref(4 + "", Global.startDownMath + "");
             dialog.dismiss();
 
             if (result) {

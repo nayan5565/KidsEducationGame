@@ -121,8 +121,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         int maxContent = conten.get(max - 1);
-        Utils.savePref(MainActivity.this, "1", maxContent + "");
-        DialogSoundOnOff.savePref(MainActivity.this, "1", max + "");
+//        Utils.savePref("1", maxContent + "");
+//        DialogSoundOnOff.savePref(MainActivity.this, "1", max + "");
+        Global.maximumContentOfBangla = maxContent;
         Global.startDownBan = max;
 
         for (int i = start; i < max; i++) {
@@ -169,8 +170,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         int maxContent = conten.get(max - 1);
-        Utils.savePref(context, level + "", maxContent + "");
-        DialogSoundOnOff.savePref(context, level + "", max + "");
+        Utils.savePref(level + "", maxContent + "");
+        DialogSoundOnOff.savePref(level + "", max + "");
 
 
         for (int i = start; i < max; i++) {
@@ -215,9 +216,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             max = conten.size();
         }
         int maxContent = conten.get(max - 1);
-        Utils.savePref(MainActivity.this, "2", maxContent + "");
-        DialogSoundOnOff.savePref(MainActivity.this, "2", max + "");
-
+//        Utils.savePref("2", maxContent + "");
+//        DialogSoundOnOff.savePref(MainActivity.this, "2", max + "");
+        Global.maximumContentOfOngko = maxContent;
         Global.startDownOngk = max;
         for (int i = start; i < max; i++) {
             cUrls = database.getContentUrl(2, conten.get(i));
@@ -262,8 +263,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             max = conten.size();
         }
         int maxContent = conten.get(max - 1);
-        Utils.savePref(MainActivity.this, "3", maxContent + "");
-        DialogSoundOnOff.savePref(MainActivity.this, "3", max + "");
+        Global.maximumContentOfEnglish = maxContent;
+//        Utils.savePref("3", maxContent + "");
+//        DialogSoundOnOff.savePref(MainActivity.this, "3", max + "");
         Global.startDownEng = max;
         for (int i = start; i < max; i++) {
             cUrls = database.getContentUrl(3, conten.get(i));
@@ -308,8 +310,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             max = conten.size();
         }
         int maxContent = conten.get(max - 1);
-        Utils.savePref(MainActivity.this, "4", maxContent + "");
-        DialogSoundOnOff.savePref(MainActivity.this, "4", max + "");
+        Global.maximumContentOfMath = maxContent;
+//        Utils.savePref("4", maxContent + "");
+//        DialogSoundOnOff.savePref(MainActivity.this, "4", max + "");
         Global.startDownMath = max;
         for (int i = start; i < max; i++) {
             cUrls = database.getContentUrl(4, conten.get(i));
@@ -395,7 +398,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Utils.move(cloud1, cloud2);
             }
         }, 100);
-        image1 = DialogSoundOnOff.getPREF(this, DialogSoundOnOff.KEY_IMAGE);
+        image1 = DialogSoundOnOff.getPREF( DialogSoundOnOff.KEY_IMAGE);
         if (image1.equals(1 + "")) {
             Utils.isSoundPlay = true;
 
@@ -414,11 +417,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
-                    String sync = DialogSoundOnOff.getPREF(MainActivity.this, "sync");
+                    String sync = DialogSoundOnOff.getPREF( "sync");
                     if (!sync.equals(response.getString("update_date"))) {
                         getOnlineData();
                     }
-                    DialogSoundOnOff.savePref(MainActivity.this, "sync", response.getString("update_date"));
+                    DialogSoundOnOff.savePref( "sync", response.getString("update_date"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -869,11 +872,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                        String start = DialogSoundOnOff.getPREF(MainActivity.this, 1 + "");
 //                        int s = Integer.valueOf(start);
 //                        if (s==0){
-                            banglaImage(0);
-                            ongkoImage(0);
-                            englishImage(0);
-                            mathImage(0);
-                            imageDownload();
+                        banglaImage(0);
+                        ongkoImage(0);
+                        englishImage(0);
+                        mathImage(0);
+                        imageDownload();
 //                        }
 
                         int c = 0;

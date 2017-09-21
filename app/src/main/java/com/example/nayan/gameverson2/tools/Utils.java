@@ -51,7 +51,7 @@ public class Utils {
     public static int widthSize, heightSize;
     static MediaPlayer mediaPlayer;
     public static final String MYPREF = "mPre";
-    public static SharedPreferences preferences;
+
 
 
     public static String convertToBangla(String number) {
@@ -391,17 +391,17 @@ public class Utils {
         }
     }
 
-    public static String getPREF(Context context, String key) {
-        preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
+    public static String getPREF( String key) {
+        SharedPreferences preferences = MyApplication.getMyInstance().getAppContext().getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
         return preferences.getString(key, "null");
     }
-    public static int getIntPREF(Context context, String key) {
-        preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
+    public static int getIntPREF(String key) {
+        SharedPreferences preferences =  MyApplication.getMyInstance().getAppContext().getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
         return preferences.getInt(key, 0);
     }
 
-    public static void savePref(Context context, String key, String value) {
-        preferences = context.getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
+    public static void savePref(String key, String value) {
+        SharedPreferences preferences =  MyApplication.getMyInstance().getAppContext().getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(key, value);
         editor.apply();
