@@ -940,7 +940,7 @@ public class GameLogic {
                 gameAdapter.notifyDataSetChanged();
                 Log.e("ANIM", "click:" + oneClick);
             }
-        }, 500);
+        }, 700);
     }
 
     public void flipAnimation2(View view) {
@@ -949,7 +949,7 @@ public class GameLogic {
         animator.start();
     }
 
-    public void shakeAnimation(View v) {
+    public void shakeAnimation(final View v) {
         oneClick = 0;
         // Create shake effect from xml resource
         Animation shake = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.shaking);
@@ -957,19 +957,31 @@ public class GameLogic {
 
         // Perform animation
         v.startAnimation(shake);
-        gameAdapter.notifyDataSetChanged();
+        shake.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                v.clearAnimation();
+                gameAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
     }
 
 
     public void resetList(int listSize) {
         for (int i = 0; i < listSize; i++) {
-//            list.get(i).setClick(Utils.IMAGE_OFF);
-//            imageView.setImageResource(R.drawable.yellow_panel);
             list.get(i).setMatch(0);
         }
-//        previousMcontents.setMatch(0);
-//        MAllContent mContents = new MAllContent();
-//        previousMcontents = mContents;
         Collections.shuffle(list);
         clickCount = getMin() - 1;
         matchWinCount = 0;
@@ -1003,7 +1015,6 @@ public class GameLogic {
             saveDb();
         }
 
-//        addDb();
 
         if (presentPoint > Utils.bestPoint) {
             Utils.bestPoint = presentPoint;

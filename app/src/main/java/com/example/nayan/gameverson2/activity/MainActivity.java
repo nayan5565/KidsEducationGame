@@ -152,12 +152,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         Global.URLS.addAll(uniquesUrls);
-        Log.e("Urls", "content " + conten.size());
-        Log.e("Urls", "cont size " + cUrls.size());
-        Log.e("Urls", "content id " + allContentId.size());
-        Log.e("Urls", "cont unique size " + uniquesUrls.size());
-        Log.e("Urls", "cont all size " + cAllUrls.size());
-        Log.e("Urls", "word size " + allWUrls.size());
+        Utils.log("Urls", "cont unique size " + uniquesUrls.size());
+        Utils.log("Urls", "cont all size " + cAllUrls.size());
+        Utils.log("Urls", "cont size " + cUrls.size());
+        Utils.log("Urls", "content id " + allContentId.size());
+        Utils.log("Urls", "word size " + allWUrls.size());
+        Utils.log("Urls", "content " + conten.size());
     }
 
     public void allCatagoryImage(int start, int level, Context context) {
@@ -199,12 +199,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         Global.URLS.addAll(uniquesUrls);
-        Log.e("Urls", "content " + conten.size());
-        Log.e("Urls", "cont size " + cUrls.size());
-        Log.e("Urls", "content id " + allContentId.size());
-        Log.e("Urls", "cont unique size " + uniquesUrls.size());
-        Log.e("Urls", "cont all size " + cAllUrls.size());
-        Log.e("Urls", "word size " + allWUrls.size());
+        Utils.log("Urls", "cont unique size " + uniquesUrls.size());
+        Utils.log("Urls", "cont all size " + cAllUrls.size());
+        Utils.log("Urls", "cont size " + cUrls.size());
+        Utils.log("Urls", "content id " + allContentId.size());
+        Utils.log("Urls", "word size " + allWUrls.size());
+        Utils.log("Urls", "content " + conten.size());
     }
 
     public void ongkoImage(int start) {
@@ -246,12 +246,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         Global.URLS.addAll(uniquesUrls);
-        Log.e("Urls", "cont unique size " + uniquesUrls.size());
-        Log.e("Urls", "cont all size " + cAllUrls.size());
-        Log.e("Urls", "cont size " + cUrls.size());
-        Log.e("Urls", "content id " + allContentId.size());
-        Log.e("Urls", "word size " + allWUrls.size());
-        Log.e("Urls", "content " + conten.size());
+        Utils.log("Urls", "cont unique size " + uniquesUrls.size());
+        Utils.log("Urls", "cont all size " + cAllUrls.size());
+        Utils.log("Urls", "cont size " + cUrls.size());
+        Utils.log("Urls", "content id " + allContentId.size());
+        Utils.log("Urls", "word size " + allWUrls.size());
+        Utils.log("Urls", "content " + conten.size());
     }
 
     public void englishImage(int start) {
@@ -293,12 +293,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         Global.URLS.addAll(uniquesUrls);
-        Log.e("Urls", "cont unique size " + uniquesUrls.size());
-        Log.e("Urls", "cont all size " + cAllUrls.size());
-        Log.e("Urls", "cont size " + cUrls.size());
-        Log.e("Urls", "content id " + allContentId.size());
-        Log.e("Urls", "word size " + allWUrls.size());
-        Log.e("Urls", "content " + conten.size());
+        Utils.log("Urls", "cont unique size " + uniquesUrls.size());
+        Utils.log("Urls", "cont all size " + cAllUrls.size());
+        Utils.log("Urls", "cont size " + cUrls.size());
+        Utils.log("Urls", "content id " + allContentId.size());
+        Utils.log("Urls", "word size " + allWUrls.size());
+        Utils.log("Urls", "content " + conten.size());
     }
 
     public void mathImage(int start) {
@@ -341,12 +341,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         Global.URLS.addAll(uniquesUrls);
 //        imageDownload();
-        Log.e("Urls", "cont unique size " + uniquesUrls.size());
-        Log.e("Urls", "cont all size " + cAllUrls.size());
-        Log.e("Urls", "cont size " + cUrls.size());
-        Log.e("Urls", "content id " + allContentId.size());
-        Log.e("Urls", "word size " + allWUrls.size());
-        Log.e("Urls", "content " + conten.size());
+        Utils.log("Urls", "cont unique size " + uniquesUrls.size());
+        Utils.log("Urls", "cont all size " + cAllUrls.size());
+        Utils.log("Urls", "cont size " + cUrls.size());
+        Utils.log("Urls", "content id " + allContentId.size());
+        Utils.log("Urls", "word size " + allWUrls.size());
+        Utils.log("Urls", "content " + conten.size());
     }
 
     public void imageDownload() {

@@ -93,14 +93,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
     public void onBindViewHolder(MyViewholder holder, int position) {
         mContent = textArrayList.get(position);
         if (Global.logic == 3) {
-//                || Global.subLevelId == 4 || Global.subLevelId == 8 || Global.subLevelId == 13) {
             if (mContent.getMatch() == 1) {
-//                holder.txtContents.setBackgroundColor(0xff888888);
-//                flipAnimation(holder.txtContents);
                 holder.imgAnim2.setImageResource(R.drawable.green_panel);
 
             } else {
-//                shakeAnimation(holder.itemView);
                 holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
@@ -108,60 +104,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
             holder.txtContents.setTextColor(0xffff00ff);
 
         }
-//        if (Global.logic == 2) {
-////                || Global.subLevelId == 4 || Global.subLevelId == 8 || Global.subLevelId == 13) {
-//            if (mContent.getMatch() == 1) {
-////                holder.txtContents.setBackgroundColor(0xff888888);
-////                flipAnimation(holder.txtContents);
-//                holder.imgAnim2.setImageResource(R.drawable.green_panel);
-//
-//            } else {
-////                shakeAnimation(holder.itemView);
-//                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
-//                holder.txtContents.setBackgroundColor(0);
-//            }
-//            holder.txtContents.setText(mContent.getTxt());
-//            holder.txtContents.setTextColor(0xffff00ff);
-//
-//        }
-//        else if (Global.subLevelId == 2) {
-//            holder.txtContents.setTextColor(0xffff00ff);
-//            holder.txtContents.setTextSize(20);
-//            if (mContent.getTxt() == null || mContent.getTxt().equals("")) {
-//                holder.txtContents.setText(mContent.getSen());
-//
-//
-//            } else {
-//                holder.txtContents.setText(mContent.getTxt());
-//            }
-//            if (mContent.getMatch() == 1) {
-//                holder.imgAnim2.setImageResource(R.drawable.green_panel);
-//            } else {
-//                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
-//                holder.txtContents.setBackgroundColor(0);
-//            }
-//
-//        }
-//        else if (Global.subLevelId == 2) {
-//            holder.txtContents.setTextColor(0xffff00ff);
-//            holder.txtContents.setTextSize(20);
-//
-//            if (mContent.getMatch() == 1) {
-//                if (mContent.getTxt() == null || mContent.getTxt().equals("")) {
-//                    holder.txtContents.setText(mContent.getSen());
-//
-//
-//                } else {
-//                    holder.txtContents.setText(mContent.getTxt());
-//                }
-//                holder.imgAnim2.setImageResource(R.drawable.green_panel);
-//            } else {
-//                holder.txtContents.setText("");
-//                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
-//                holder.txtContents.setBackgroundColor(0);
-//            }
-//
-//        }
 //main logic 2 make comments for sub_level_activity
         if (Global.logic == 2) {
             holder.txtContents.setTextColor(0xffff00ff);
@@ -178,44 +120,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                 holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
                 holder.txtContents.setBackgroundColor(0);
             }
-//                || Global.subLevelId == 5 || Global.subLevelId == 9 || Global.subLevelId == 14) {
-//            holder.txtContents.setTextColor(0xffff00ff);
-////            holder.txtContents.setText(mContent.getTxt());
-//
-//
-//            if (mContent.getMatch() == 1) {
-//
-//
-//                holder.imgAnim2.setImageResource(R.drawable.green_panel);
-//                if (mContent.getTxt() == null || mContent.getTxt().equals("")) {
-//
-//                    holder.imgAnim.setVisibility(View.VISIBLE);
-//                    holder.txtContents.setText("");
-//                    Log.e("image e", "img :" + Global.IMAGE_URL + mContent.getImg());
-//                    String loc = "loc";
-//                    if (Global.levelId == 1) {
-//                        loc = MainActivity.image;
-//                    } else if (Global.levelId == 2) {
-//                        loc = MainActivity.image;
-//                    } else if (Global.levelId == 3) {
-//                        loc = MainActivity.image;
-//                    } else if (Global.levelId == 4) {
-//                        loc = MainActivity.image;
-//                    }
-//                    Bitmap bmp = BitmapFactory.decodeFile(loc + "/" + mContent.getImg());
-//
-//                    holder.imgAnim.setImageBitmap(bmp);
-//
-//                } else {
-//                    holder.txtContents.setText(mContent.getTxt());
-//                    holder.imgAnim.setVisibility(View.GONE);
-//                }
-//            } else {
-//                holder.txtContents.setText("");
-//                holder.imgAnim.setVisibility(View.GONE);
-//                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
-//                holder.txtContents.setBackgroundColor(Color.TRANSPARENT);
-//            }
+
         } else if (Global.logic == 1) {
 
             if (mContent.getMatch() == 1) {
@@ -259,32 +164,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
                 holder.txtContents.setBackgroundColor(0);
             }
         }
-       /* else if (Global.subLevelId == 6) {
-            if (mContent.getMatch() == 1) {
 
-            } else {
-                holder.txtContents.setBackgroundColor(0);
-            }
-            holder.txtContents.setText(mContent.getTxt());
-            holder.txtContents.setTextColor(0xffff00ff);
-        } else if (Global.subLevelId == 15) {
-            if (mContent.getClick() == Global.IMAGE_OPEN) {
-
-            } else {
-                holder.txtContents.setBackgroundColor(0);
-            }
-            holder.txtContents.setText(mContent.getTxt());
-            holder.txtContents.setTextColor(0xffff00ff);
-        } else if (Global.subLevelId == 19) {
-            if (mContent.getMatch() == 1) {
-
-            } else {
-                holder.imgAnim2.setImageResource(R.drawable.yellow_panel);
-                holder.txtContents.setBackgroundColor(0);
-            }
-            holder.txtContents.setText(mContent.getTxt());
-            holder.txtContents.setTextColor(0xffff00ff);
-        }*/
 
     }
 
@@ -292,30 +172,116 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
     public int getItemCount() {
         return textArrayList.size();
     }
+    class MyViewholder extends RecyclerView.ViewHolder {
+        TextView txtContents;
+        private ImageView imgAnim;
+        private ImageView imgAnim2;
 
-    public void getAnimation(View view) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", -180, 0);
-        animator.setDuration(500);
-        animator.start();
+        public MyViewholder(final View itemView) {
+            super(itemView);
+            imgAnim = (ImageView) itemView.findViewById(R.id.imgImage);
+            imgAnim2 = (ImageView) itemView.findViewById(R.id.imganim2);
+            txtContents = (TextView) itemView.findViewById(R.id.textContents);
+            if (Global.levelId == 1) {
+                Utils.setFont(context, "BenSen", txtContents);
+            }
+            if (Global.levelId == 2) {
+                Utils.setFont(context, "BenSen", txtContents);
+            }
+            if (Global.levelId == 3) {
+                Utils.setFont(context, "carterone", txtContents);
+            }
+            if (Global.levelId == 4) {
+                Utils.setFont(context, "carterone", txtContents);
+            }
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getAdapterPosition() < 0)
+                        return;
+
+                    mContent = textArrayList.get(getAdapterPosition());
+                    Global.GAME_INDEX_POSITION = getAdapterPosition();
+
+
+                    if (Global.logic == 3) {
+//                        String mSound = "msound";
+//                        if (Global.levelId == 1) {
+//                            mSound = MainActivity.sounds;
+//                        } else if (Global.levelId == 2) {
+//                            mSound = MainActivity.sounds;
+//                        } else if (Global.levelId == 3) {
+//                            mSound = MainActivity.sounds;
+//                        } else if (Global.levelId == 4) {
+//                            mSound = MainActivity.sounds;
+//                        }
+//                        Utils.PlaySound(mSound + File.separator + mContent.getAud());
+                        gameLogic.textClick(mContent, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
+                    } else if (Global.logic == 2) {
+
+                        gameLogic.imageClick(mContent, getAdapterPosition(), textArrayList.size(), itemView, imgAnim2);
+                    } else if (Global.logic == 1) {
+
+                        mContent.setWords(db.getAllWordsData(mContent.getMid()));
+                        dialogShowWithWordArray(getAdapterPosition());
+                    } else if (Global.logic == 4) {
+                        gameLogic.forLevel2(itemView, mContent, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
+                    }
+
+                }
+            });
+        }
     }
 
+    private void dialogShow(final int start, final int pos, final int level) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dia_download);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button btnOK = (Button) dialog.findViewById(R.id.btnYap);
+        Button btnCancel = (Button) dialog.findViewById(R.id.btnNop);
+        btnOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Global.levelId == 1) {
+                    MainActivity.getInstance().banglaImage(start);
+                    Log.e("content", " start bangla ");
 
-    public void flipAnimation2(View view) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationY", 0, -180);
-        animator.setDuration(500);
-        animator.start();
+                } else if (Global.levelId == 2) {
+                    MainActivity.getInstance().ongkoImage(start);
+                    Log.e("content", " start ongko ");
+                } else if (Global.levelId == 3) {
+                    MainActivity.getInstance().englishImage(start);
+                    Log.e("content", " start english ");
+                } else if (Global.levelId == 4) {
+                    MainActivity.getInstance().mathImage(start);
+                    Log.e("content", " start math ");
+                }
+//                MainActivity.getInstance().allCatagoryImage(start, level, context);
+//                FilesDownload filesDownload = FilesDownload.getInstance(context, bothImg);
+//                for (int i = 0; i < Global.URLS.size(); i++) {
+//                    filesDownload.addUrl(Global.IMAGE_URL + Global.URLS.get(i));
+//
+//                }
+//                FilesDownload.getInstance(context, "").start();
+                GameActivity.getInstance().download();
+                dialog.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
-
-    public void getShake(View v) {
-        // Create shake effect from xml resource
-        Animation shake = AnimationUtils.loadAnimation(context.getApplicationContext(), R.anim.shaking);
-        // View element to be shaken
-
-        // Perform animation
-        v.startAnimation(shake);
-    }
-
-
     private void dialogShowWithWordArray(final int pos) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -339,22 +305,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         sounds = MainActivity.sounds;
         mainSounds = MainActivity.sounds;
         imageWords = MainActivity.image;
-//        if (Global.levelId == 1) {
-//
-//        } else if (Global.levelId == 2) {
-//            mainSounds = MainActivity.sounds;
-//            sounds = MainActivity.sounds;
-//            imageWords = MainActivity.image;
-//        } else if (Global.levelId == 3) {
-//            mainSounds = MainActivity.sounds;
-//            sounds = MainActivity.sounds;
-//            imageWords = MainActivity.image;
-//        } else if (Global.levelId == 4) {
-//            mainSounds = MainActivity.sounds;
-//            sounds = MainActivity.sounds;
-//            imageWords = MainActivity.image;
-//        }
-
         imgSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -585,221 +535,6 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
         dialog.show();
 
     }
-
-    private void dialogShowWithWordsList() {
-
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(true);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.setContentView(R.layout.dialog_show_text);
-        RelativeLayout changeColor2 = (RelativeLayout) dialog.findViewById(R.id.relLayout);
-
-        TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
-        TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
-        TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
-        TextView txt4 = (TextView) dialog.findViewById(R.id.txt4);
-        ImageView img1 = (ImageView) dialog.findViewById(R.id.img1);
-        ImageView img2 = (ImageView) dialog.findViewById(R.id.img2);
-        ImageView img3 = (ImageView) dialog.findViewById(R.id.img3);
-        ImageView img4 = (ImageView) dialog.findViewById(R.id.img4);
-        Utils.setFont(context, "carterone", txt1, txt2, txt3, txt4);
-        ImageView imgBack = (ImageView) dialog.findViewById(R.id.imgBack);
-        ImageView imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
-        if (Global.levelId == 1) {
-            Utils.changeUIcolor(context, Global.uriBangla, changeColor2);
-        } else if (Global.levelId == 2) {
-            Utils.changeUIcolor(context, Global.uriOngko, changeColor2);
-        } else if (Global.levelId == 3) {
-            Utils.changeUIcolor(context, Global.uriEnglish, changeColor2);
-        }
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Global.GAME_INDEX_POSITION <= 0) {
-                    Utils.toastMassage(context, "level finish");
-
-                    dialog.dismiss();
-
-                } else {
-                    Global.GAME_INDEX_POSITION = Global.GAME_INDEX_POSITION - 1;
-
-                    mContent = textArrayList.get(Global.GAME_INDEX_POSITION);
-
-                    mContent.setWords(db.getAllWordsData(mContent.getMid()));
-
-                    dialogShowWithWordsList();
-                    Utils.toastMassage(context, "Position");
-                    dialog.dismiss();
-                }
-//
-            }
-        });
-        imgClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-        Log.e("TEST", "s:" + mContent.getWords().size());
-        if (mContent.getWords().size() == 4) {
-            txt1.setText(mContent.getWords().get(0).getWword());
-            txt2.setText(mContent.getWords().get(1).getWword());
-            txt3.setText(mContent.getWords().get(2).getWword());
-            txt4.setText(mContent.getWords().get(3).getWword());
-
-            String url = Global.IMAGE_URL + mContent.getWords().get(0).getWimg();
-            String url2 = Global.IMAGE_URL + mContent.getWords().get(1).getWimg();
-            String url3 = Global.IMAGE_URL + mContent.getWords().get(2).getWimg();
-            String url4 = Global.IMAGE_URL + mContent.getWords().get(3).getWimg();
-            Picasso.with(context)
-                    .load(url)
-                    .into(img1);
-            Picasso.with(context)
-                    .load(url2)
-                    .into(img2);
-            Picasso.with(context)
-                    .load(url3)
-                    .into(img3);
-            Picasso.with(context)
-                    .load(url4)
-                    .into(img4);
-
-        } else if (mContent.getWords().size() == 3) {
-            txt1.setText(mContent.getWords().get(0).getWword());
-            txt2.setText(mContent.getWords().get(1).getWword());
-            txt3.setText(mContent.getWords().get(2).getWword());
-            String url = Global.IMAGE_URL + mContent.getWords().get(0).getWimg();
-            String url2 = Global.IMAGE_URL + mContent.getWords().get(1).getWimg();
-            String url3 = Global.IMAGE_URL + mContent.getWords().get(2).getWimg();
-            Picasso.with(context)
-                    .load(url)
-                    .into(img1);
-            Picasso.with(context)
-                    .load(url2)
-                    .into(img2);
-            Picasso.with(context)
-                    .load(url3)
-                    .into(img3);
-        } else if (mContent.getWords().size() == 2) {
-            txt1.setText(mContent.getWords().get(0).getWword());
-            txt2.setText(mContent.getWords().get(1).getWword());
-            String url = Global.IMAGE_URL + mContent.getWords().get(0).getWimg();
-            String url2 = Global.IMAGE_URL + mContent.getWords().get(1).getWimg();
-            Picasso.with(context)
-                    .load(url)
-                    .into(img1);
-            Picasso.with(context)
-                    .load(url2)
-                    .into(img2);
-        } else if (mContent.getWords().size() == 1) {
-            txt1.setText(mContent.getWords().get(0).getWword());
-            String url = Global.IMAGE_URL + mContent.getWords().get(0).getWimg();
-            Log.e("imgae", "url is" + url);
-            Picasso.with(context)
-                    .load(url)
-                    .into(img1);
-//            img1.setImageResource(mContent.getWords().get(0).getWimg());
-
-
-        }
-        dialog.show();
-    }
-
-    class MyViewholder extends RecyclerView.ViewHolder {
-        TextView txtContents;
-        private ImageView imgAnim;
-        private ImageView imgAnim2;
-
-        public MyViewholder(final View itemView) {
-            super(itemView);
-            imgAnim = (ImageView) itemView.findViewById(R.id.imgImage);
-            imgAnim2 = (ImageView) itemView.findViewById(R.id.imganim2);
-            txtContents = (TextView) itemView.findViewById(R.id.textContents);
-            if (Global.levelId == 1) {
-                Utils.setFont(context, "BenSen", txtContents);
-            }
-            if (Global.levelId == 2) {
-                Utils.setFont(context, "BenSen", txtContents);
-            }
-            if (Global.levelId == 3) {
-                Utils.setFont(context, "carterone", txtContents);
-            }
-            if (Global.levelId == 4) {
-                Utils.setFont(context, "carterone", txtContents);
-            }
-
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getAdapterPosition() < 0)
-                        return;
-
-                    mContent = textArrayList.get(getAdapterPosition());
-                    Global.GAME_INDEX_POSITION = getAdapterPosition();
-
-
-                    if (Global.logic == 3) {
-//                            || Global.subLevelId == 4 || Global.subLevelId == 8 || Global.subLevelId == 13) {
-//                        String mSound = "msound";
-//                        if (Global.levelId == 1) {
-//                            mSound = MainActivity.sounds;
-//                        } else if (Global.levelId == 2) {
-//                            mSound = MainActivity.sounds;
-//                        } else if (Global.levelId == 3) {
-//                            mSound = MainActivity.sounds;
-//                        } else if (Global.levelId == 4) {
-//                            mSound = MainActivity.sounds;
-//                        }
-//                        Utils.PlaySound(mSound + File.separator + mContent.getAud());
-                        gameLogic.textClick(mContent, getAdapterPosition(), textArrayList.size(), itemView, txtContents, imgAnim2);
-//                        gameLogic.forLevel2(itemView, mContent, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
-                    } else if (Global.logic == 2) {
-//                            || Global.subLevelId == 5 || Global.subLevelId == 9 || Global.subLevelId == 14) {
-
-//                        gameLogic.forLevel2(itemView, mContent, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
-                        gameLogic.imageClick(mContent, getAdapterPosition(), textArrayList.size(), itemView, imgAnim2);
-                    } else if (Global.logic == 1) {
-
-                        mContent.setWords(db.getAllWordsData(mContent.getMid()));
-                        dialogShowWithWordArray(getAdapterPosition());
-//                        dialogShowWithWordsList();
-                    } else if (Global.logic == 4) {
-                        gameLogic.forLevel2(itemView, mContent, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
-                    }
-//                    else if (Global.subLevelId == 6) {
-//                        mContent.setWords(db.getBanglaMathWordsData(mContent.getMid()));
-//                        dialogShowWithWordArray(getAdapterPosition());
-//                    } else if (Global.subLevelId == 15) {
-//                        mContent.setWords(db.getMathWordsData(mContent.getMid()));
-//                        dialogShowWithWordArray(getAdapterPosition());
-////                        gameLogic.forLevel2(itemView, mContent, textArrayList.size(), txtContents, getAdapterPosition(), imgAnim2);
-////                        gameLogic.imageClick(mContent, getAdapterPosition(), textArrayList.size(), itemView);
-//                    } else if (Global.subLevelId == 19) {
-//                        dialogShowWithWordsList();
-//                    }
-
-
-                }
-            });
-        }
-    }
-
-    private void savePoint() {
-        MLock lock = new MLock();
-        DatabaseHelper db = new DatabaseHelper(context);
-        lock = db.getLocalData(Global.levelId, Global.subLevelId);
-        lock.setLevel_id(Global.levelId);
-        lock.setSub_level_id(Global.subLevelId);
-        lock.setBestPoint(Utils.bestPoint);
-        lock.setTotal_pont(Global.totalPoint);
-        lock.setIsSavePoint(Global.isSavePoint);
-
-
-        db.addLockData(lock);
-    }
-
     public void dialogShowForLevelClear(final int listSize) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -927,52 +662,123 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewholder> 
 //        else txtPoint.setText(Utils.getIntToStar(0));
         dialog.show();
     }
+    private void dialogShowWithWordsList() {
 
-    private void dialogShow(final int start, final int pos, final int level) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dia_download);
+        dialog.setCancelable(true);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Button btnOK = (Button) dialog.findViewById(R.id.btnYap);
-        Button btnCancel = (Button) dialog.findViewById(R.id.btnNop);
-        btnOK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Global.levelId == 1) {
-                    MainActivity.getInstance().banglaImage(start);
-                    Log.e("content", " start bangla ");
+        dialog.setContentView(R.layout.dialog_show_text);
+        RelativeLayout changeColor2 = (RelativeLayout) dialog.findViewById(R.id.relLayout);
 
-                } else if (Global.levelId == 2) {
-                    MainActivity.getInstance().ongkoImage(start);
-                    Log.e("content", " start ongko ");
-                } else if (Global.levelId == 3) {
-                    MainActivity.getInstance().englishImage(start);
-                    Log.e("content", " start english ");
-                } else if (Global.levelId == 4) {
-                    MainActivity.getInstance().mathImage(start);
-                    Log.e("content", " start math ");
-                }
-//                MainActivity.getInstance().allCatagoryImage(start, level, context);
-//                FilesDownload filesDownload = FilesDownload.getInstance(context, bothImg);
-//                for (int i = 0; i < Global.URLS.size(); i++) {
-//                    filesDownload.addUrl(Global.IMAGE_URL + Global.URLS.get(i));
-//
-//                }
-//                FilesDownload.getInstance(context, "").start();
-                GameActivity.getInstance().download();
-                dialog.dismiss();
-            }
-        });
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
+        TextView txt1 = (TextView) dialog.findViewById(R.id.txt1);
+        TextView txt2 = (TextView) dialog.findViewById(R.id.txt2);
+        TextView txt3 = (TextView) dialog.findViewById(R.id.txt3);
+        TextView txt4 = (TextView) dialog.findViewById(R.id.txt4);
+        ImageView img1 = (ImageView) dialog.findViewById(R.id.img1);
+        ImageView img2 = (ImageView) dialog.findViewById(R.id.img2);
+        ImageView img3 = (ImageView) dialog.findViewById(R.id.img3);
+        ImageView img4 = (ImageView) dialog.findViewById(R.id.img4);
+        Utils.setFont(context, "carterone", txt1, txt2, txt3, txt4);
+        ImageView imgBack = (ImageView) dialog.findViewById(R.id.imgBack);
+        ImageView imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
+        if (Global.levelId == 1) {
+            Utils.changeUIcolor(context, Global.uriBangla, changeColor2);
+        } else if (Global.levelId == 2) {
+            Utils.changeUIcolor(context, Global.uriOngko, changeColor2);
+        } else if (Global.levelId == 3) {
+            Utils.changeUIcolor(context, Global.uriEnglish, changeColor2);
+        }
+        imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (Global.GAME_INDEX_POSITION <= 0) {
+                    Utils.toastMassage(context, "level finish");
 
+                    dialog.dismiss();
+
+                } else {
+                    Global.GAME_INDEX_POSITION = Global.GAME_INDEX_POSITION - 1;
+
+                    mContent = textArrayList.get(Global.GAME_INDEX_POSITION);
+
+                    mContent.setWords(db.getAllWordsData(mContent.getMid()));
+
+                    dialogShowWithWordsList();
+                    Utils.toastMassage(context, "Position");
+                    dialog.dismiss();
+                }
+//
+            }
+        });
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 dialog.dismiss();
             }
         });
+        Log.e("TEST", "s:" + mContent.getWords().size());
+        if (mContent.getWords().size() == 4) {
+            txt1.setText(mContent.getWords().get(0).getWword());
+            txt2.setText(mContent.getWords().get(1).getWword());
+            txt3.setText(mContent.getWords().get(2).getWword());
+            txt4.setText(mContent.getWords().get(3).getWword());
 
+            String url = Global.IMAGE_URL + mContent.getWords().get(0).getWimg();
+            String url2 = Global.IMAGE_URL + mContent.getWords().get(1).getWimg();
+            String url3 = Global.IMAGE_URL + mContent.getWords().get(2).getWimg();
+            String url4 = Global.IMAGE_URL + mContent.getWords().get(3).getWimg();
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
+            Picasso.with(context)
+                    .load(url2)
+                    .into(img2);
+            Picasso.with(context)
+                    .load(url3)
+                    .into(img3);
+            Picasso.with(context)
+                    .load(url4)
+                    .into(img4);
+
+        } else if (mContent.getWords().size() == 3) {
+            txt1.setText(mContent.getWords().get(0).getWword());
+            txt2.setText(mContent.getWords().get(1).getWword());
+            txt3.setText(mContent.getWords().get(2).getWword());
+            String url = Global.IMAGE_URL + mContent.getWords().get(0).getWimg();
+            String url2 = Global.IMAGE_URL + mContent.getWords().get(1).getWimg();
+            String url3 = Global.IMAGE_URL + mContent.getWords().get(2).getWimg();
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
+            Picasso.with(context)
+                    .load(url2)
+                    .into(img2);
+            Picasso.with(context)
+                    .load(url3)
+                    .into(img3);
+        } else if (mContent.getWords().size() == 2) {
+            txt1.setText(mContent.getWords().get(0).getWword());
+            txt2.setText(mContent.getWords().get(1).getWword());
+            String url = Global.IMAGE_URL + mContent.getWords().get(0).getWimg();
+            String url2 = Global.IMAGE_URL + mContent.getWords().get(1).getWimg();
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
+            Picasso.with(context)
+                    .load(url2)
+                    .into(img2);
+        } else if (mContent.getWords().size() == 1) {
+            txt1.setText(mContent.getWords().get(0).getWword());
+            String url = Global.IMAGE_URL + mContent.getWords().get(0).getWimg();
+            Log.e("imgae", "url is" + url);
+            Picasso.with(context)
+                    .load(url)
+                    .into(img1);
+//            img1.setImageResource(mContent.getWords().get(0).getWimg());
+
+
+        }
         dialog.show();
     }
 
